@@ -11,28 +11,24 @@ public class Project implements Parcelable {
     public Client client;
     public Staff projectManager;
     public Date date;
-    public String position;
     public float percentage;
-    public ArrayList<Staff> team;
     public ArrayList<Step> steps;
 
-    public Project(String title, Client client, int numOfStaff, Date date, String position, float percentage) {
+    public Project(String title, Client client, Staff projectManager, Date date, float percentage, ArrayList<Step> steps) {
         this.title = title;
         this.client = client;
+        this.projectManager = projectManager;
         this.date = date;
-        this.position = position;
         this.percentage = percentage;
+        this.steps = steps;
     }
-
 
     protected Project(Parcel in) {
         title = in.readString();
         client = (Client) in.readSerializable();
         projectManager = (Staff) in.readSerializable();
         date = (Date) in.readSerializable();
-        position = in.readString();
         percentage = in.readFloat();
-        team = (ArrayList<Staff>) in.readSerializable();
         steps = (ArrayList<Step>) in.readSerializable();
     }
 
@@ -59,9 +55,7 @@ public class Project implements Parcelable {
         parcel.writeSerializable(client);
         parcel.writeSerializable(projectManager);
         parcel.writeSerializable(date);
-        parcel.writeString(position);
         parcel.writeFloat(percentage);
-        parcel.writeSerializable(team);
         parcel.writeSerializable(steps);
     }
 }
