@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="4dp"
+    android:elevation="6dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <ImageButton
+                android:id="@+id/project_expand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_margin="10dp"
+                android:background="#00000000"
+                android:src="@drawable/ic_expand_less" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/pertamina_logo" />
+
+            <TextView
+                android:id="@+id/project_txt_image_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="#c2252525"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:paddingRight="30dp"
+                android:paddingBottom="10dp"
+                android:text="Event Landing Page Pertamina"
+                android:textColor="@android:color/white"
+                android:textSize="20dp" />
+        </android.support.design.widget.CoordinatorLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/expansion"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/project_txt_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:text="Event Landing Page Pertamina"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/project_txt_client"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="By PT. Pertamina"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/project_txt_title" />
+
+            <TextView
+                android:id="@+id/project_txt_team"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="8 Orang (Team)"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/project_txt_client" />
+
+            <TextView
+                android:id="@+id/project_txt_pm"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp"
+                android:text="Project Manager : Rendi Hasan"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/project_txt_team" />
+
+            <TextView
+                android:id="@+id/project_txt_finish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="Finished at : "
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/project_txt_pm" />
+
+            <TextView
+                android:id="@+id/project_txt_finish_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="14 Oktober 2018"
+                android:textColor="@android:color/black"
+                android:textSize="10sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/project_txt_finish"
+                app:layout_constraintStart_toEndOf="@+id/project_txt_finish" />
+
+            <TextView
+                android:id="@+id/project_txt_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="as Marketing"
+                android:textSize="17sp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/project_txt_pm" />
+
+            <TextView
+                android:id="@+id/project_txt_range_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="6 Oktober 2018 - 16 Oktober 2018"
+                android:textColor="@android:color/black"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/project_txt_position" />
+
+            <com.github.lzyzsd.circleprogress.DonutProgress
+                android:id="@+id/project_donut_progress"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:donut_circle_starting_degree="270"
+                app:donut_finished_color="@color/colorAccent"
+                app:donut_progress="56"
+                app:donut_text_color="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </LinearLayout>
+
+
+
+</android.support.v7.widget.CardView>
