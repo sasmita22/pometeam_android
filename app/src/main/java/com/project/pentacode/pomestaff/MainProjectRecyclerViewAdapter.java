@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.project.pentacode.pomestaff.model.Project;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,6 +21,7 @@ import butterknife.ButterKnife;
 public class MainProjectRecyclerViewAdapter extends RecyclerView.Adapter<MainProjectRecyclerViewAdapter.ViewHolder> {
     MainProjectFragment.OnListProjectInteraction mListener;
     List<Project> projects;
+    final DateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
 
     public MainProjectRecyclerViewAdapter(List<Project> projects, MainProjectFragment.OnListProjectInteraction mListener) {
         this.mListener = mListener;
@@ -39,8 +42,8 @@ public class MainProjectRecyclerViewAdapter extends RecyclerView.Adapter<MainPro
         holder.txtTitleInImage.setText(project.title);
         holder.txtTitle.setText(project.title);
         holder.txtClient.setText("By "+project.client);
-        holder.txtFinished.setText(project.date);
-        holder.txtRange.setText(project.date+" - "+project.date);
+        holder.txtFinished.setText(dateFormat.format(project.date));
+        holder.txtRange.setText(dateFormat.format(project.date)+" - "+dateFormat.format(project.date));
         holder.txtPosition.setText("as "+project.position);
         holder.txtTeam.setText(project.numOfStaff+" Orang (Team)");
         holder.donutProgress.setProgress(project.percentage);

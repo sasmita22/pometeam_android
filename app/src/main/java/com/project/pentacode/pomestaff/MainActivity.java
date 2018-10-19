@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.project.pentacode.pomestaff.model.Project;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements MainProjectFragment.OnListProjectInteraction {
     MainProjectFragment projectFragment;
@@ -34,12 +35,12 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        ArrayList<Parcelable> projects = new ArrayList<>();
+        /*ArrayList<Parcelable> projects = new ArrayList<>();
         projects.add(new Project(
                 "Pertamina Event Landing Page",
                 "PT. PERTAMINA",
                 8,
-                "12 Oktober 2018",
+                new Date(),
                 "Marketing",
                 78));
 
@@ -47,11 +48,11 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
                 "E-Commerce Distro",
                 "Screamous",
                 5,
-                "12 Oktober 2018",
+                new Date(),
                 "Developer",
                 60));
 
-        projectFragment = MainProjectFragment.newInstance(projects);
+        projectFragment = MainProjectFragment.newInstance(projects);*/
 
         dashboardFragment = new MainDashboardFragment();
 
