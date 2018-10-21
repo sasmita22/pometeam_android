@@ -41,11 +41,12 @@ public class MainProjectRecyclerViewAdapter extends RecyclerView.Adapter<MainPro
         Project project = projects.get(position);
         holder.txtTitleInImage.setText(project.title);
         holder.txtTitle.setText(project.title);
-        holder.txtClient.setText("By "+project.client);
-        holder.txtFinished.setText(dateFormat.format(project.date));
-        holder.txtRange.setText(dateFormat.format(project.date)+" - "+dateFormat.format(project.date));
-        holder.txtPosition.setText("as "+project.position);
-        holder.txtTeam.setText(project.numOfStaff+" Orang (Team)");
+        holder.txtClient.setText("By "+project.client.nama);
+        holder.txtFinished.setText(dateFormat.format(project.finishedAt));
+        holder.txtProjectManager.setText(project.projectManager.name);
+        holder.txtRange.setText(dateFormat.format(project.startAt)+" - "+dateFormat.format(project.deadlineAt));
+        holder.txtPosition.setText("as "+project.userPosition);
+        holder.txtTeam.setText(project.jumlahTeam+" Orang (Team)");
         holder.donutProgress.setProgress(project.percentage);
         holder.expandButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +78,8 @@ public class MainProjectRecyclerViewAdapter extends RecyclerView.Adapter<MainPro
         public TextView txtTitle;
         @BindView(R.id.project_txt_client)
         public TextView txtClient;
+        @BindView(R.id.project_txt_pm_name)
+        public TextView txtProjectManager;
         @BindView(R.id.project_txt_team)
         public TextView txtTeam;
         @BindView(R.id.project_txt_finish_date)

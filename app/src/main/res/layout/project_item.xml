@@ -91,9 +91,20 @@
                 android:layout_height="22dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="8dp"
-                android:text="Project Manager : Rendi Hasan"
+                android:text="Project Manager : "
                 android:textColor="@android:color/black"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/project_txt_team"/>
+
+            <TextView
+                android:id="@+id/project_txt_pm_name"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Rendi Hasan"
+                android:textColor="@android:color/black"
+                app:layout_constraintStart_toEndOf="@+id/project_txt_pm"
                 app:layout_constraintTop_toBottomOf="@+id/project_txt_team" />
 
             <TextView

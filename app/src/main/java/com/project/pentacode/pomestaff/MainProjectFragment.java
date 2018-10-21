@@ -1,6 +1,7 @@
 package com.project.pentacode.pomestaff;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -13,10 +14,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.project.pentacode.pomestaff.model.Project;
 
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class MainProjectFragment extends Fragment {
     OnListProjectInteraction mListener;
@@ -57,6 +61,7 @@ public class MainProjectFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnListProjectInteraction) {
             mListener = (OnListProjectInteraction) context;
+
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");

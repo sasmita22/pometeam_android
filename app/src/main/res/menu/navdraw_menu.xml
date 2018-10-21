@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navdraw_myprofile"
+            android:icon="@drawable/ic_home"
+            android:title="My Profile"
+            />
+        <item
+            android:id="@+id/navdraw_notifications"
+            android:icon="@drawable/ic_notifications"
+            android:title="Notifications"
+            />
+    </group>
+
+    <item
+        android:id="@+id/navdraw_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="Logout"
+        />
+</menu>

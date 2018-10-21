@@ -9,16 +9,24 @@ import java.util.Date;
 public class Project implements Parcelable {
     public String title;
     public Client client;
+    public int jumlahTeam;
     public Staff projectManager;
-    public Date date;
+    public String userPosition;
+    public Date startAt;
+    public Date deadlineAt;
+    public Date finishedAt;
     public float percentage;
     public ArrayList<Step> steps;
 
-    public Project(String title, Client client, Staff projectManager, Date date, float percentage, ArrayList<Step> steps) {
+    public Project(String title, Client client, int jumlahTeam, Staff projectManager, String userPosition, Date startAt, Date deadlineAt, Date finishedAt, float percentage, ArrayList<Step> steps) {
         this.title = title;
         this.client = client;
+        this.jumlahTeam = jumlahTeam;
         this.projectManager = projectManager;
-        this.date = date;
+        this.userPosition = userPosition;
+        this.startAt = startAt;
+        this.deadlineAt = deadlineAt;
+        this.finishedAt = finishedAt;
         this.percentage = percentage;
         this.steps = steps;
     }
@@ -26,10 +34,14 @@ public class Project implements Parcelable {
     protected Project(Parcel in) {
         title = in.readString();
         client = (Client) in.readSerializable();
+        jumlahTeam = in.readInt();
         projectManager = (Staff) in.readSerializable();
-        date = (Date) in.readSerializable();
+        userPosition = in.readString();
+        startAt = (Date) in.readSerializable();
+        deadlineAt = (Date) in.readSerializable();
+        finishedAt = (Date) in.readSerializable();
         percentage = in.readFloat();
-        steps = (ArrayList<Step>) in.readSerializable();
+        steps = in.createTypedArrayList(Step.CREATOR);
     }
 
     public static final Creator<Project> CREATOR = new Creator<Project>() {
@@ -53,9 +65,13 @@ public class Project implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(title);
         parcel.writeSerializable(client);
+        parcel.writeInt(jumlahTeam);
         parcel.writeSerializable(projectManager);
-        parcel.writeSerializable(date);
+        parcel.writeString(userPosition);
+        parcel.writeSerializable(startAt);
+        parcel.writeSerializable(deadlineAt);
+        parcel.writeSerializable(finishedAt);
         parcel.writeFloat(percentage);
-        parcel.writeSerializable(steps);
+        parcel.writeTypedList(steps);
     }
 }
