@@ -38,6 +38,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.LoggingMXBean;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity implements MainProjectFragment.OnListProjectInteraction,NavigationView.OnNavigationItemSelectedListener {
     MainProjectFragment projectFragment;
     MainDashboardFragment dashboardFragment;
@@ -53,21 +56,32 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        //configure drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        //get header navdraw view
+        View headerView = navigationView.getHeaderView(0);
 
-        SharedPreferences sp1=this.getSharedPreferences("Coba", MODE_PRIVATE);
+        //getShared
+        SharedPreferences sp1=this.getSharedPreferences("LoginData", MODE_PRIVATE);
 
         prefNip = sp1.getString("nip", "kosong");
         prefNama = sp1.getString("nama", "kosong");
-        Toast.makeText(this, prefNama, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, prefNip, Toast.LENGTH_SHORT).show();
 
+        Staff staff = ModelGenerator.getStaff(prefNip);
+        Toast.makeText(this, staff.email, Toast.LENGTH_SHORT).show();
+
+        //ganti email di header navdraw
+        TextView txtEmail = headerView.findViewById(R.id.navdraw_email);
+        txtEmail.setText(staff.email);
 
 
         projectFragment = MainProjectFragment.newInstance(getMyProjects(ModelGenerator.getProjects()));
@@ -144,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
         int id = item.getItemId();
 
         if (id == R.id.navdraw_myprofile) {
-            // Handle the camera action
+            startActivity(new Intent(this,ProfileActivity.class));
         } else if (id == R.id.navdraw_notifications) {
 
         } else if (id == R.id.navdraw_logout) {

@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
             Staff staff = listStaff.get(i);
             if (email.equalsIgnoreCase(staff.email) && pass.equals("123456")){
                 verified = true;
-                SharedPreferences sp=getSharedPreferences("Coba", MODE_PRIVATE);
+                SharedPreferences sp=getSharedPreferences("LoginData", MODE_PRIVATE);
                 SharedPreferences.Editor Ed=sp.edit();
                 Ed.putString("nip",staff.nip );
                 Ed.putString("nama",staff.name );

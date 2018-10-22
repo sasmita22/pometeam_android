@@ -193,16 +193,34 @@ public class ModelGenerator {
     public static ArrayList<Staff> getListStaff(){
         final ArrayList<Staff> listStaff = new ArrayList<>();
 
-        listStaff.add(new Staff("102388211","Nana Sujatmiko","nanasujatmiko@gmail.com","Junior Programmer",null));
-        listStaff.add(new Staff("102388212","Aris Setiyanto","arissetiyanto@gmail.com","Senior Programmer", null));
-        listStaff.add(new Staff("102388213","Yopi Nuno","yopinuno@gmail.com","Junior Programmer", null));
-        listStaff.add(new Staff("102388214","Rico Ceper","ricoceper@gmail.com","Senior Programmer", null));
-        listStaff.add(new Staff("102388215","Semi Adinda","semiadinda@gmail.com","Training", null));
-        listStaff.add(new Staff("102388216","Heru Bara","herubara@gmail.com","Senior Programmer", null));
-        listStaff.add(new Staff("102388217","Juna Asamiko","junaasamiko@gmail.com","Training", null));
-        listStaff.add(new Staff("102388218","Tuna Asri","tunaasri@gmail.com","Senior Programmer", null));
-        listStaff.add(new Staff("102388219","Jono Joni","jonojoni@gmail.com","Senior Programmer", null));
+        listStaff.add(new Staff("102388211","Nana Sujatmiko","nanasujatmiko@gmail.com","08231238382","bitbucket.org/nanasj/","Junior Programmer",
+                "https://developers.google.com/web/images/contributors/ilyagrigorik.jpg?hl=id"));
+        listStaff.add(new Staff("102388212","Aris Setiyanto","arissetiyanto@gmail.com","08231238382","bitbucket.org/aris21/","Senior Programmer",
+                "https://i2.wp.com/wp.lancs.ac.uk/envision/files/2017/01/Simon-Tarr-400-x-400-px.jpg?resize=400%2C400"));
+        listStaff.add(new Staff("102388213","Yopi Nuno","yopinuno@gmail.com","08231238382","bitbucket.org/yopin/","Junior Programmer",
+                "https://132q6j40a81047nmwg1az6v8-wpengine.netdna-ssl.com/wp-content/uploads/2017/02/kyle-400x400.jpg"));
+        listStaff.add(new Staff("102388214","Rico Ceper","ricoceper@gmail.com","08231238382","bitbucket.org/ricoceper/","Senior Programmer",
+                "http://ameriflux.lbl.gov/wp-content/uploads/2014/07/DarioPapale_sq400px-400x400.jpg"));
+        listStaff.add(new Staff("102388215","Semi Adinda","semiadinda@gmail.com","08231238382","bitbucket.org/adinda/","Training",
+                "https://pbs.twimg.com/profile_images/813065746934808576/iTLDxVWC_400x400.jpg"));
+        listStaff.add(new Staff("102388216","Heru Bara","herubara@gmail.com","08231238382","bitbucket.org/herubara/","Senior Programmer",
+                "https://hacktiv8.com/img/avatar/antoni-angga--md5--0c549de33ff28e5220f3e2bd6fe1b299.jpg"));
+        listStaff.add(new Staff("102388217","Juna Asamiko","junaasamiko@gmail.com","08231238382","bitbucket.org/asamiko/","Training",
+                "https://www.bennettphilp.com.au/wp-content/uploads/2018/07/Brian-Smith-400x400.jpg"));
+        listStaff.add(new Staff("102388218","Tuna Asri","tunaasri@gmail.com","08231238382","bitbucket.org/asrituna/","Senior Programmer",
+                "https://www.gsscpa.com/wp-content/uploads/2017/11/bo-brault-e1510670977988-400x400.png"));
+        listStaff.add(new Staff("102388219","Jono Joni","jonojoni@gmail.com","08231238382","bitbucket.org/jononi/","Senior Programmer",
+                "https://secure.gravatar.com/avatar/d84f53bd2eb3037fb605d0473ce8ddcb?s=400&d=mm&r=g"));
 
         return listStaff;
+    }
+
+    public static Staff getStaff(String nip){
+        for(Staff s : getListStaff()){
+            if (s.nip.equals(nip)){
+                return s;
+            }
+        }
+        return null;
     }
 }
