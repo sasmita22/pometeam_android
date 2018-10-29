@@ -4,40 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="4dp"
-    app:cardCornerRadius="4dp"
-    android:elevation="6dp">
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginRight="16dp"
+    app:cardCornerRadius="6dp"
+    android:elevation="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <android.support.design.widget.CoordinatorLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp">
-
-            <ImageButton
-                android:id="@+id/project_expand"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_margin="10dp"
-                android:background="#00000000"
-                android:src="@drawable/ic_expand_less" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/pertamina_logo" />
+            android:layout_height="250dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/project_txt_image_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="#c2252525"
+                android:layout_height="60dp"
+                android:background="#d3181818"
                 android:ellipsize="end"
+                android:fontFamily="@font/roboto"
+                android:gravity="center_vertical"
                 android:maxLines="1"
                 android:paddingLeft="30dp"
                 android:paddingTop="10dp"
@@ -45,128 +35,156 @@
                 android:paddingBottom="10dp"
                 android:text="Event Landing Page Pertamina"
                 android:textColor="@android:color/white"
-                android:textSize="20dp" />
-        </android.support.design.widget.CoordinatorLayout>
+                android:textSize="22dp" />
+
+            <ImageView
+                android:id="@+id/project_image_company"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/pertamina_logo" />
+
+
+        </LinearLayout>
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/expansion"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="220dp"
             android:visibility="gone">
-
-            <TextView
-                android:id="@+id/project_txt_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:text="Event Landing Page Pertamina"
-                android:textColor="@android:color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/project_txt_client"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:text="By PT. Pertamina"
-                android:textColor="@android:color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/project_txt_title" />
-
-            <TextView
-                android:id="@+id/project_txt_team"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:text="8 Orang (Team)"
-                android:textColor="@android:color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/project_txt_client" />
 
             <TextView
                 android:id="@+id/project_txt_pm"
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="8dp"
-                android:text="Project Manager : "
-                android:textColor="@android:color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/project_txt_team"/>
+                android:text="Project Manager"
+                android:textAppearance="@style/detailTitleText2" />
 
             <TextView
                 android:id="@+id/project_txt_pm_name"
                 android:layout_width="wrap_content"
-                android:layout_height="22dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Rendi Hasan"
-                android:textColor="@android:color/black"
-                app:layout_constraintStart_toEndOf="@+id/project_txt_pm"
-                app:layout_constraintTop_toBottomOf="@+id/project_txt_team" />
-
-            <TextView
-                android:id="@+id/project_txt_finish"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:text="Finished at : "
-                android:textColor="@android:color/black"
+                android:layout_marginStart="25dp"
+                android:text="Rendi Hasan"
+                android:textAppearance="@style/detailDescText2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/project_txt_pm" />
 
             <TextView
-                android:id="@+id/project_txt_finish_date"
+                android:id="@+id/project_txt_range_time_title"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="14 Oktober 2018"
-                android:textColor="@android:color/black"
-                android:textSize="10sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/project_txt_finish"
-                app:layout_constraintStart_toEndOf="@+id/project_txt_finish" />
-
-            <TextView
-                android:id="@+id/project_txt_position"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="as Marketing"
-                android:textSize="17sp"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/project_txt_pm" />
+                android:layout_height="22dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="8dp"
+                android:text="Range Time"
+                android:textAppearance="@style/detailTitleText2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/project_txt_pm_name" />
 
             <TextView
                 android:id="@+id/project_txt_range_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginStart="25dp"
                 android:text="6 Oktober 2018 - 16 Oktober 2018"
-                android:textColor="@android:color/black"
+                android:textAppearance="@style/detailDescText2"
                 android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/project_txt_range_time_title" />
+
+            <TextView
+                android:id="@+id/project_txt_team_title"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="8dp"
+                android:text="Team"
+                android:textAppearance="@style/detailTitleText2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/project_txt_range_time" />
+
+            <TextView
+                android:id="@+id/project_txt_team"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:text="8 Orang (Team)"
+                android:textAppearance="@style/detailDescText2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/project_txt_team_title" />
+
+
+            <TextView
+                android:id="@+id/project_txt_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="as Marketing"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/project_txt_position" />
+                app:layout_constraintEnd_toEndOf="@+id/project_donut_progress"
+                app:layout_constraintStart_toStartOf="@+id/project_donut_progress"
+                app:layout_constraintTop_toBottomOf="@+id/project_donut_progress" />
+
 
             <com.github.lzyzsd.circleprogress.DonutProgress
                 android:id="@+id/project_donut_progress"
                 android:layout_width="85dp"
                 android:layout_height="85dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="36dp"
                 app:donut_circle_starting_degree="270"
                 app:donut_finished_color="@color/colorAccent"
                 app:donut_progress="56"
                 app:donut_text_color="@color/colorAccent"
+                app:layout_constraintBottom_toTopOf="@+id/project_txt_position"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.3"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="1dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="25dp"
+                android:background="#646464"
+                app:layout_constraintRight_toLeftOf="@+id/guideline"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="#646464"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="210dp" />
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="Detail"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_orange_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view3" />
 
 
         </android.support.constraint.ConstraintLayout>

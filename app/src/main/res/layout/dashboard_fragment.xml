@@ -55,7 +55,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,6 +73,13 @@
                     android:textStyle="bold"
                     android:text="Upcoming Tasks" />
             </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                tools:listitem="@layout/upcoming_task_item">
+
+            </android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

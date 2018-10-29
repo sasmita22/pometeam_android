@@ -1,11 +1,13 @@
 package com.project.pentacode.pomestaff;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.lzyzsd.circleprogress.DonutProgress;
@@ -48,6 +50,7 @@ public class MainProjectRecyclerViewAdapter extends RecyclerView.Adapter<MainPro
         holder.txtPosition.setText("as "+project.userPosition);
         holder.txtTeam.setText(project.jumlahTeam+" Orang (Team)");
         holder.donutProgress.setProgress(project.percentage);
+        holder.expandButton.bringToFront();
         holder.expandButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,6 +61,13 @@ public class MainProjectRecyclerViewAdapter extends RecyclerView.Adapter<MainPro
                     holder.expansion.setVisibility(View.GONE);
                     holder.expandButton.setImageResource(R.drawable.ic_expand_less);
                 }
+            }
+        });
+        holder.imgCompany.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity context = (MainActivity) mListener;
+                context.startActivity(new Intent(context,ProjectDetailActivity.class));
             }
         });
     }
@@ -74,6 +84,8 @@ public class MainProjectRecyclerViewAdapter extends RecyclerView.Adapter<MainPro
         public View mView;
         @BindView(R.id.project_txt_image_title)
         public TextView txtTitleInImage;
+        @BindView(R.id.project_image_company)
+        public ImageView imgCompany;
         @BindView(R.id.project_txt_title)
         public TextView txtTitle;
         @BindView(R.id.project_txt_client)

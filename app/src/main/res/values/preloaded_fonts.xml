@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/adamina</item>
+        <item>@font/average</item>
+        <item>@font/coustard</item>
+        <item>@font/euphoria_script</item>
+        <item>@font/great_vibes</item>
+        <item>@font/leckerli_one</item>
+        <item>@font/libre_baskerville_italic</item>
+        <item>@font/oleo_script</item>
+        <item>@font/roboto</item>
+        <item>@font/roboto_mono_medium_italic</item>
+        <item>@font/rubik_medium</item>
+        <item>@font/shrikhand</item>
+    </array>
+</resources>

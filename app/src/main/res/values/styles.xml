@@ -19,4 +19,31 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="custom" parent="Widget.AppCompat.EditText">
+        <item name="android:colorControlActivated">#00ff00</item>
+        <item name="android:colorControlHighlight">#fff200</item>
+        <item name="android:colorControlNormal">#fb00ff</item>
+    </style>
+
+    <style name="detailTitleText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="detailDescText">
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_marginStart">@dimen/margin_left_text</item>
+    </style>
+
+    <style name="detailTitleText2">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="detailDescText2">
+        <item name="android:textSize">10sp</item>
+        <item name="android:layout_marginStart">@dimen/margin_left_text</item>
+    </style>
 </resources>

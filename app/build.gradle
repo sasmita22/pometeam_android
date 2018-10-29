@@ -43,5 +43,8 @@ dependencies {
     //circleimageview
     implementation 'de.hdodenhof:circleimageview:2.2.0'
 
+    //progress bar
+    implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
+
 
 }

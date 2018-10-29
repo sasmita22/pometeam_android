@@ -35,11 +35,6 @@ import com.project.pentacode.pomestaff.model.Staff;
 import com.project.pentacode.pomestaff.model.Step;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.logging.LoggingMXBean;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements MainProjectFragment.OnListProjectInteraction,NavigationView.OnNavigationItemSelectedListener {
     MainProjectFragment projectFragment;
@@ -157,10 +152,10 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
 
         int id = item.getItemId();
 
-        if (id == R.id.navdraw_myprofile) {
+        if (id == R.id.navdraw_aboutme) {
             startActivity(new Intent(this,ProfileActivity.class));
         } else if (id == R.id.navdraw_notifications) {
-
+            startActivity(new Intent(this,NotificationActivity.class));
         } else if (id == R.id.navdraw_logout) {
             startActivity(new Intent(this,LoginActivity.class));
         }
