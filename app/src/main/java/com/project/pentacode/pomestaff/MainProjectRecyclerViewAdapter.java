@@ -42,24 +42,18 @@ public class MainProjectRecyclerViewAdapter extends RecyclerView.Adapter<MainPro
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         Project project = projects.get(position);
         holder.txtTitleInImage.setText(project.title);
-        holder.txtTitle.setText(project.title);
-        holder.txtClient.setText("By "+project.client.nama);
-        holder.txtFinished.setText(dateFormat.format(project.finishedAt));
         holder.txtProjectManager.setText(project.projectManager.name);
         holder.txtRange.setText(dateFormat.format(project.startAt)+" - "+dateFormat.format(project.deadlineAt));
         holder.txtPosition.setText("as "+project.userPosition);
         holder.txtTeam.setText(project.jumlahTeam+" Orang (Team)");
         holder.donutProgress.setProgress(project.percentage);
-        holder.expandButton.bringToFront();
-        holder.expandButton.setOnClickListener(new View.OnClickListener() {
+        holder.imgCompany.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (holder.expansion.getVisibility() == View.GONE) {
                     holder.expansion.setVisibility(View.VISIBLE);
-                    holder.expandButton.setImageResource(R.drawable.ic_expand);
                 } else {
                     holder.expansion.setVisibility(View.GONE);
-                    holder.expandButton.setImageResource(R.drawable.ic_expand_less);
                 }
             }
         });
@@ -86,24 +80,16 @@ public class MainProjectRecyclerViewAdapter extends RecyclerView.Adapter<MainPro
         public TextView txtTitleInImage;
         @BindView(R.id.project_image_company)
         public ImageView imgCompany;
-        @BindView(R.id.project_txt_title)
-        public TextView txtTitle;
-        @BindView(R.id.project_txt_client)
-        public TextView txtClient;
         @BindView(R.id.project_txt_pm_name)
         public TextView txtProjectManager;
         @BindView(R.id.project_txt_team)
         public TextView txtTeam;
-        @BindView(R.id.project_txt_finish_date)
-        public TextView txtFinished;
         @BindView(R.id.project_txt_range_time)
         public TextView txtRange;
         @BindView(R.id.project_txt_position)
         public TextView txtPosition;
         @BindView(R.id.project_donut_progress)
         public DonutProgress donutProgress;
-        @BindView(R.id.project_expand)
-        public ImageButton expandButton;
         @BindView(R.id.expansion)
         public ViewGroup expansion;
 

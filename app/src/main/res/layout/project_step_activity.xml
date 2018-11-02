@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content">
+
         <include layout="@layout/toolbar_project_step"/>
         <View
             android:layout_width="match_parent"
@@ -18,9 +19,11 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/container_step"
+        android:id="@+id/recyclerview_step"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/step_item"
+        android:clipToPadding="false"
+        android:paddingTop="20dp"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"></android.support.v7.widget.RecyclerView>
 </LinearLayout>

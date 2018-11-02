@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 public class MainDashboardFragment extends Fragment {
 
     public MainDashboardFragment() {
+
     }
 
     public static MainDashboardFragment newInstance() {
@@ -36,6 +38,10 @@ public class MainDashboardFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.dashboard_fragment, container, false);
+
+        TextView view = ((View) container.getParent()).findViewById(R.id.main_title_toolbar);
+        view.setText("Dashboard");
+
         ArrayList<BarEntry> barEntries = new ArrayList<>();
         barEntries.add(new BarEntry(44f,0));
         barEntries.add(new BarEntry(77f,1));

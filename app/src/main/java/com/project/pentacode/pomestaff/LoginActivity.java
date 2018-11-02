@@ -59,26 +59,5 @@ public class LoginActivity extends AppCompatActivity {
         if (!verified)
             Toast.makeText(this, "Login Error", Toast.LENGTH_SHORT).show();
 
-        /*if (email.equals("nanasujatmiko@gmail.com") && pass.equals("123456")){
-            SharedPreferences sp=getSharedPreferences("Coba", MODE_PRIVATE);
-            SharedPreferences.Editor Ed=sp.edit();
-            Ed.putString("nip","102388211" );
-            Ed.putString("nama","Nana Sujatmiko" );
-            Ed.apply();
-
-            startActivity(new Intent(this,MainActivity.class));
-            finish();
-        } else if(email.equals("jonijono@gmail.com") && pass.equals("123456")){
-            SharedPreferences sp=getSharedPreferences("Coba", MODE_PRIVATE);
-            SharedPreferences.Editor Ed=sp.edit();
-            Ed.putString("nip","102388219" );
-            Ed.putString("nama","Joni Jono" );
-            Ed.apply();
-
-            startActivity(new Intent(this,MainActivity.class));
-            finish();
-        } else {
-            Toast.makeText(this, "Login Error", Toast.LENGTH_SHORT).show();
-        }*/
     }
 }

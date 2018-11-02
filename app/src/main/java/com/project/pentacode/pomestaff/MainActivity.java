@@ -1,10 +1,13 @@
 package com.project.pentacode.pomestaff;
 
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -36,9 +39,13 @@ import com.project.pentacode.pomestaff.model.Step;
 
 import java.util.ArrayList;
 
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity implements MainProjectFragment.OnListProjectInteraction,NavigationView.OnNavigationItemSelectedListener {
     MainProjectFragment projectFragment;
     MainDashboardFragment dashboardFragment;
+    MainNotificationFragment notificationFragment;
+    View container;
     String prefNip;
     String prefNama;
 
@@ -47,7 +54,10 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //initiate container;
+        container = findViewById(R.id.main_content).findViewById(R.id.container);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_content).findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -78,41 +88,12 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
         TextView txtEmail = headerView.findViewById(R.id.navdraw_email);
         txtEmail.setText(staff.email);
 
-
         projectFragment = MainProjectFragment.newInstance(getMyProjects(ModelGenerator.getProjects()));
-
         dashboardFragment = new MainDashboardFragment();
+        notificationFragment = new MainNotificationFragment();
 
-        // Setup spinner
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        spinner.setAdapter(new MyAdapter(
-                toolbar.getContext(),
-                new String[]{
-                        "Dashboard",
-                        "Project",
-                }));
-
-        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // When the given dropdown item is selected, show its contents in the
-                // container view.
-                if (position==0)
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container, dashboardFragment)
-                            .commit();
-                else
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container,projectFragment)
-                            .commit();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-
+        //initiate fragment
+        changeFragment(dashboardFragment);
     }
 
     @Override
@@ -152,10 +133,14 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
 
         int id = item.getItemId();
 
-        if (id == R.id.navdraw_aboutme) {
-            startActivity(new Intent(this,ProfileActivity.class));
+        if (id == R.id.navdraw_dashboard) {
+            changeFragment(dashboardFragment);
+        } else if (id == R.id.navdraw_myproject) {
+            changeFragment(projectFragment);
         } else if (id == R.id.navdraw_notifications) {
-            startActivity(new Intent(this,NotificationActivity.class));
+            changeFragment(notificationFragment);
+        } else if (id == R.id.navdraw_aboutme) {
+            startActivity(new Intent(this,ProfileActivity.class));
         } else if (id == R.id.navdraw_logout) {
             startActivity(new Intent(this,LoginActivity.class));
         }
@@ -237,6 +222,12 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
             }
         }
         return myProject;
+    }
+
+    public void changeFragment(Fragment fragment){
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(container.getId(),fragment);
+        ft.commit();
     }
 
     public Parcelable fixProject(Parcelable project){

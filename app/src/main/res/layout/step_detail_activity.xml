@@ -87,5 +87,27 @@
         app:progress_text_color="@color/colorAccent"
         app:progress_reached_color="@color/colorAccent"/>
 
+    <Button
+        android:id="@+id/btn_seeteam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="See Team Member"
+        android:textColor="@android:color/white"
+        android:layout_margin="30dp"
+        android:textAllCaps="false"
+        android:background="@drawable/rounded_orange_button"/>
+
+    <Button
+        android:id="@+id/btn_managestep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Manage The Step"
+        android:textColor="@android:color/white"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:textAllCaps="false"
+        android:background="@drawable/rounded_orange_button"/>
+
 
 </LinearLayout>

@@ -20,7 +20,7 @@
         app:layout_constraintVertical_chainStyle="spread" />
 
 
-    <EditText
+    <TextView
         android:id="@+id/editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,6 +31,7 @@
         android:fontFamily="@font/adamina"
         android:gravity="center"
         android:padding="0dp"
+        android:textColor="@android:color/black"
         android:text="Hi, Welcome Back! \n Please Sign In to Continue"
         android:textSize="11sp"
         android:textStyle="bold"
@@ -119,6 +120,7 @@
         android:text="Copyright 2018. Pome Inc."
         android:textColor="@android:color/black"
         android:textStyle="bold"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

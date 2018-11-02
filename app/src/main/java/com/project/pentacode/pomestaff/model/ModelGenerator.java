@@ -44,7 +44,7 @@ public class ModelGenerator {
 
         staff1 = new ArrayList<>();
         staff1.add(getListStaff().get(4));
-        staff1.add(getListStaff().get(7));
+        staff1.add(getListStaff().get(0));
         step = getSteps().get(3);
         step.team = staff1;
         step.priority = 3;

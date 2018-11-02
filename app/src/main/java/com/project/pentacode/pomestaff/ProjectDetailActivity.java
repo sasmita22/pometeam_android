@@ -1,5 +1,6 @@
 package com.project.pentacode.pomestaff;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,15 @@ public class ProjectDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         backButton.bringToFront();
+    }
+
+    @OnClick(R.id.btn_gotoworkspace)
+    void workspaceClick(View v){ startActivity(new Intent(this,ProjectTaskListActivity.class));
+    }
+
+    @OnClick(R.id.btn_manageproject)
+    void manageProjectClick(View v){
+        startActivity(new Intent(this,ProjectStepActivity.class));
     }
 
     @OnClick(R.id.project_back_button)

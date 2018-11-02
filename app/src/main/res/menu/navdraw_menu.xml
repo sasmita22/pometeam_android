@@ -4,12 +4,12 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="navdraw_dashboard"
+            android:id="@+id/navdraw_dashboard"
             android:icon="@drawable/ic_dashboard"
             android:title="Dashboard"/>
 
         <item
-            android:id="navdraw_myproject"
+            android:id="@+id/navdraw_myproject"
             android:icon="@drawable/ic_myproject"
             android:title="My Projects"/>
 

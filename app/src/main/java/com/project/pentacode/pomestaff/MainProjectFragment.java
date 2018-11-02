@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.pentacode.pomestaff.model.Project;
@@ -27,6 +28,7 @@ public class MainProjectFragment extends Fragment {
 
     public MainProjectFragment() {
         setHasOptionsMenu(true);
+
     }
 
     public static MainProjectFragment newInstance(ArrayList<Parcelable> obj) {
@@ -39,7 +41,7 @@ public class MainProjectFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_main, menu);
+        //inflater.inflate(R.menu.menu_main, menu);
     }
 
     @Nullable
@@ -47,9 +49,14 @@ public class MainProjectFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.project_fragment, container, false);
 
-        if (rootView instanceof RecyclerView){
+        TextView view = ((View) container.getParent()).findViewById(R.id.main_title_toolbar);
+        view.setText("My Project");
+
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerview_project_list);
+
+        if (recyclerView instanceof RecyclerView){
             Context context = rootView.getContext();
-            RecyclerView recyclerView = (RecyclerView) rootView;
+            //RecyclerView recyclerView = (RecyclerView) rootView;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(new MainProjectRecyclerViewAdapter(getArguments().<Project>getParcelableArrayList("data"),mListener));
         }
