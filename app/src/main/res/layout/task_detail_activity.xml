@@ -103,13 +103,13 @@
                 android:layout_marginLeft="@dimen/margin_left_text">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/circleImageView"
+                    android:id="@+id/project_detail_pm_image"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:src="@drawable/simon" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/project_detail_pm_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -117,7 +117,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@+id/view"
-                    app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                    app:layout_constraintStart_toEndOf="@+id/project_detail_pm_image"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
 
@@ -127,12 +127,12 @@
                     android:layout_height="1dp"
                     android:layout_marginStart="8dp"
                     android:background="@color/colorPrimary"
-                    app:layout_constraintBottom_toTopOf="@+id/textView2"
-                    app:layout_constraintStart_toEndOf="@+id/circleImageView"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    app:layout_constraintBottom_toTopOf="@+id/project_detail_pm_jabatan"
+                    app:layout_constraintStart_toEndOf="@+id/project_detail_pm_image"
+                    app:layout_constraintTop_toBottomOf="@+id/project_detail_pm_name" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/project_detail_pm_jabatan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -140,7 +140,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="10sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                    app:layout_constraintStart_toEndOf="@+id/project_detail_pm_image"
                     app:layout_constraintTop_toBottomOf="@+id/view" />
 
                 <Button

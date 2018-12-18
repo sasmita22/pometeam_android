@@ -1,77 +1,142 @@
 package com.project.pentacode.pomestaff.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.Date;
+public class Project{
 
-public class Project implements Parcelable {
-    public String title;
-    public Client client;
-    public int jumlahTeam;
-    public Staff projectManager;
-    public String userPosition;
-    public Date startAt;
-    public Date deadlineAt;
-    public Date finishedAt;
-    public float percentage;
-    public ArrayList<Step> steps;
+    @SerializedName("id_project")
+    @Expose
+    private Integer idProject;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("deskripsi")
+    @Expose
+    private String deskripsi;
+    @SerializedName("client")
+    @Expose
+    private String client;
+    @SerializedName("pm")
+    @Expose
+    private Staff projectManagerObject;
+    @SerializedName("project_manager")
+    @Expose
+    private String projectManager;
+    @SerializedName("image")
+    @Expose
+    private String image;
+    @SerializedName("position")
+    @Expose
+    private String position;
+    @SerializedName("start_at")
+    @Expose
+    private String startAt;
+    @SerializedName("deadline_at")
+    @Expose
+    private String deadlineAt;
+    @SerializedName("ended_at")
+    @Expose
+    private String endedAt;
+    @SerializedName("step")
+    @Expose
+    private List<Step> step = null;
 
-    public Project(String title, Client client, int jumlahTeam, Staff projectManager, String userPosition, Date startAt, Date deadlineAt, Date finishedAt, float percentage, ArrayList<Step> steps) {
-        this.title = title;
-        this.client = client;
-        this.jumlahTeam = jumlahTeam;
-        this.projectManager = projectManager;
-        this.userPosition = userPosition;
+
+    public Integer getIdProject() {
+        return idProject;
+    }
+
+    public void setIdProject(Integer idProject) {
+        this.idProject = idProject;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public List<Step> getStep() {
+        return step;
+    }
+
+    public void setStep(List<Step> step) {
+        this.step = step;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getStartAt() {
+        return startAt;
+    }
+
+    public void setStartAt(String startAt) {
         this.startAt = startAt;
+    }
+
+    public String getDeadlineAt() {
+        return deadlineAt;
+    }
+
+    public void setDeadlineAt(String deadlineAt) {
         this.deadlineAt = deadlineAt;
-        this.finishedAt = finishedAt;
-        this.percentage = percentage;
-        this.steps = steps;
     }
 
-    protected Project(Parcel in) {
-        title = in.readString();
-        client = (Client) in.readSerializable();
-        jumlahTeam = in.readInt();
-        projectManager = (Staff) in.readSerializable();
-        userPosition = in.readString();
-        startAt = (Date) in.readSerializable();
-        deadlineAt = (Date) in.readSerializable();
-        finishedAt = (Date) in.readSerializable();
-        percentage = in.readFloat();
-        steps = in.createTypedArrayList(Step.CREATOR);
+    public String getEndedAt() {
+        return endedAt;
     }
 
-    public static final Creator<Project> CREATOR = new Creator<Project>() {
-        @Override
-        public Project createFromParcel(Parcel in) {
-            return new Project(in);
-        }
-
-        @Override
-        public Project[] newArray(int size) {
-            return new Project[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
+    public void setEndedAt(String endedAt) {
+        this.endedAt = endedAt;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(title);
-        parcel.writeSerializable(client);
-        parcel.writeInt(jumlahTeam);
-        parcel.writeSerializable(projectManager);
-        parcel.writeString(userPosition);
-        parcel.writeSerializable(startAt);
-        parcel.writeSerializable(deadlineAt);
-        parcel.writeSerializable(finishedAt);
-        parcel.writeFloat(percentage);
-        parcel.writeTypedList(steps);
+    public Staff getProjectManagerObject() {
+        return projectManagerObject;
+    }
+
+    public void setProjectManagerObject(Staff projectManagerObject) {
+        this.projectManagerObject = projectManagerObject;
+    }
+
+    public String getProjectManager() {
+        return projectManager;
+    }
+
+    public void setProjectManager(String projectManager) {
+        this.projectManager = projectManager;
+    }
+
+    public String getDeskripsi() {
+        return deskripsi;
+    }
+
+    public void setDeskripsi(String deskripsi) {
+        this.deskripsi = deskripsi;
+    }
+
+    public String getClient() {
+        return client;
+    }
+
+    public void setClient(String client) {
+        this.client = client;
     }
 }

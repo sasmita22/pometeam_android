@@ -32,14 +32,24 @@ import android.content.res.Resources.Theme;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.project.pentacode.pomestaff.model.LoginUser;
 import com.project.pentacode.pomestaff.model.ModelGenerator;
 import com.project.pentacode.pomestaff.model.Project;
 import com.project.pentacode.pomestaff.model.Staff;
 import com.project.pentacode.pomestaff.model.Step;
+import com.project.pentacode.pomestaff.retrofit.RetrofitClientInstance;
+import com.project.pentacode.pomestaff.retrofit.ServiceInterface;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements MainProjectFragment.OnListProjectInteraction,NavigationView.OnNavigationItemSelectedListener {
     MainProjectFragment projectFragment;
@@ -48,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
     View container;
     String prefNip;
     String prefNama;
+    String prefToken;
+    CircleImageView navImage;
+    TextView navEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,27 +86,54 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
         navigationView.setNavigationItemSelectedListener(this);
         //get header navdraw view
         View headerView = navigationView.getHeaderView(0);
+        navImage = headerView.findViewById(R.id.navdraw_image);
+        navEmail = headerView.findViewById(R.id.navdraw_email);
 
         //getShared
         SharedPreferences sp1=this.getSharedPreferences("LoginData", MODE_PRIVATE);
 
-        prefNip = sp1.getString("nip", "kosong");
-        prefNama = sp1.getString("nama", "kosong");
+        prefNip = sp1.getString("nip", "");
+        prefToken = sp1.getString("token", null);
+
+        ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
+        Call<Staff> staffCall = service.getStaff(prefNip,prefToken);
+        staffCall.enqueue(new Callback<Staff>() {
+            @Override
+            public void onResponse(Call<Staff> call, Response<Staff> response) {
+                navEmail.setText(response.body().getEmail());
+                Glide.with(getApplicationContext())
+                        .load("http://10.0.2.2:8000/images/profile/"+response.body().getImage())
+                        .into(navImage);
+            }
+
+            @Override
+            public void onFailure(Call<Staff> call, Throwable t) {
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+//        prefNama = sp1.getString("nama", "kosong");
         //Toast.makeText(this, prefNip, Toast.LENGTH_SHORT).show();
 
-        Staff staff = ModelGenerator.getStaff(prefNip);
-        Toast.makeText(this, staff.email, Toast.LENGTH_SHORT).show();
+        //Staff staff = ModelGenerator.getStaff(prefNip);
+        //Toast.makeText(this, staff.email, Toast.LENGTH_SHORT).show();
 
         //ganti email di header navdraw
-        TextView txtEmail = headerView.findViewById(R.id.navdraw_email);
-        txtEmail.setText(staff.email);
+        //TextView txtEmail = headerView.findViewById(R.id.navdraw_email);
+        //txtEmail.setText(staff.email);
 
-        projectFragment = MainProjectFragment.newInstance(getMyProjects(ModelGenerator.getProjects()));
+
+
+        initFragment();
+
+    }
+
+    private void initFragment(){
+        projectFragment = new MainProjectFragment();
         dashboardFragment = new MainDashboardFragment();
         notificationFragment = new MainNotificationFragment();
 
         //initiate fragment
-        changeFragment(dashboardFragment);
+        changeFragment(projectFragment);
     }
 
     @Override
@@ -188,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
         }
     }
 
-    public boolean isInvolved(Parcelable project){
+   /* public boolean isInvolved(Parcelable project){
         Project mProject = (Project) project;
         Step mStep;
         Staff mStaff;
@@ -211,9 +251,9 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
             Log.d("step",s);
         }
         return false;
-    }
+    }*/
 
-    public ArrayList<Parcelable> getMyProjects(ArrayList<Parcelable> allProjects){
+   /* public ArrayList<Parcelable> getMyProjects(ArrayList<Parcelable> allProjects){
         ArrayList<Parcelable> myProject = new ArrayList<>();
 
         for(int i = 0;i < allProjects.size();i++){
@@ -222,7 +262,7 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
             }
         }
         return myProject;
-    }
+    }*/
 
     public void changeFragment(Fragment fragment){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -230,7 +270,7 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
         ft.commit();
     }
 
-    public Parcelable fixProject(Parcelable project){
+   /* public Parcelable fixProject(Parcelable project){
         Project mProject = (Project) project;
         Step mStep;
         Staff mStaff;
@@ -260,5 +300,5 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
         }
         mProject.jumlahTeam = teamSize+1;
         return mProject;
-    }
+    }*/
 }

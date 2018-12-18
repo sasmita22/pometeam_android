@@ -1,57 +1,86 @@
 package com.project.pentacode.pomestaff.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-import java.util.ArrayList;
+public class Step {
 
-public class Step implements Serializable,Parcelable {
-    public int id;
-    public String name;
-    public ArrayList<Staff> team;
-    public ArrayList<Task> tasks;
-    public int priority;
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("deskripsi")
+    @Expose
+    private String deskripsi;
+    @SerializedName("deadline_at")
+    @Expose
+    private String deadlineAt;
+    @SerializedName("ended_at")
+    @Expose
+    private String endedAt;
+    @SerializedName("team")
+    @Expose
+    private List<Staff> team = null;
+    @SerializedName("task")
+    @Expose
+    private List<Task> task = null;
 
-    public Step(int id, String name, ArrayList<Staff> team, ArrayList<Task> tasks, int priority) {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDeadlineAt() {
+        return deadlineAt;
+    }
+
+    public void setDeadlineAt(String deadlineAt) {
+        this.deadlineAt = deadlineAt;
+    }
+
+    public String getEndedAt() {
+        return endedAt;
+    }
+
+    public void setEndedAt(String endedAt) {
+        this.endedAt = endedAt;
+    }
+
+    public List<Task> getTask() {
+        return task;
+    }
+
+    public void setTask(List<Task> task) {
+        this.task = task;
+    }
+
+    public List<Staff> getTeam() {
+        return team;
+    }
+
+    public void setTeam(List<Staff> team) {
         this.team = team;
-        this.tasks = tasks;
-        this.priority = priority;
     }
 
-    protected Step(Parcel in) {
-        id = in.readInt();
-        name = in.readString();
-        team = in.createTypedArrayList(Staff.CREATOR);
-        tasks = in.createTypedArrayList(Task.CREATOR);
-        priority = in.readInt();
+    public String getDeskripsi() {
+        return deskripsi;
     }
 
-    public static final Creator<Step> CREATOR = new Creator<Step>() {
-        @Override
-        public Step createFromParcel(Parcel in) {
-            return new Step(in);
-        }
-
-        @Override
-        public Step[] newArray(int size) {
-            return new Step[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(name);
-        dest.writeTypedList(team);
-        dest.writeTypedList(tasks);
-        dest.writeInt(priority);
+    public void setDeskripsi(String deskripsi) {
+        this.deskripsi = deskripsi;
     }
 }

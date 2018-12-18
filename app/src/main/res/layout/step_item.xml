@@ -15,6 +15,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/step_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -27,30 +28,36 @@
             android:textStyle="italic|bold" />
 
         <TextView
+            android:id="@+id/step_item_deskripsi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="30dp"
             android:textAppearance="@style/detailDescText"
             android:text="@string/text_description" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:gravity="bottom"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="30dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginTop="10dp">
             <TextView
+                android:id="@+id/step_item_team"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="8 Orang (Team)"
                 android:textSize="12sp"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/step_item_range_date"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="8 Oktober 2018 - 16 Oktober 2018"
-                android:layout_gravity=""
+                android:text="Deadline : 16 Oktober 2018"
                 android:textSize="12sp"/>
         </LinearLayout>
     </LinearLayout>

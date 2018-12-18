@@ -3,62 +3,76 @@ package com.project.pentacode.pomestaff.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
-public class Staff implements Serializable,Parcelable {
+public class Staff {
+    @SerializedName("nip")
+    @Expose
     public String nip;
+    @SerializedName("name")
+    @Expose
     public String name;
+    @SerializedName("email")
+    @Expose
     public String email;
-    public String telephone;
-    public String git;
+    @SerializedName("jabatan")
+    @Expose
     public String jabatan;
-    public String photoResource;
+    @SerializedName("image")
+    @Expose
+    public String image;
+    @SerializedName("telephone")
+    @Expose
+    public String telephone;
 
-    public Staff(String nip, String name, String email, String telephone, String git, String jabatan, String photoResource) {
+    public String getNip() {
+        return nip;
+    }
+
+    public void setNip(String nip) {
         this.nip = nip;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
-        this.telephone = telephone;
-        this.git = git;
+    }
+
+    public String getJabatan() {
+        return jabatan;
+    }
+
+    public void setJabatan(String jabatan) {
         this.jabatan = jabatan;
-        this.photoResource = photoResource;
     }
 
-    protected Staff(Parcel in) {
-        nip = in.readString();
-        name = in.readString();
-        email = in.readString();
-        telephone = in.readString();
-        git = in.readString();
-        jabatan = in.readString();
-        photoResource = in.readString();
+    public String getTelephone() {
+        return telephone;
     }
 
-    public static final Creator<Staff> CREATOR = new Creator<Staff>() {
-        @Override
-        public Staff createFromParcel(Parcel in) {
-            return new Staff(in);
-        }
-
-        @Override
-        public Staff[] newArray(int size) {
-            return new Staff[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(nip);
-        dest.writeString(name);
-        dest.writeString(email);
-        dest.writeString(telephone);
-        dest.writeString(git);
-        dest.writeString(jabatan);
-        dest.writeString(photoResource);
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

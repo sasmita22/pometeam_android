@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,25 +18,40 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.project.pentacode.pomestaff.model.Example;
 import com.project.pentacode.pomestaff.model.Project;
+import com.project.pentacode.pomestaff.retrofit.RetrofitClientInstance;
+import com.project.pentacode.pomestaff.retrofit.ServiceInterface;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 
 public class MainProjectFragment extends Fragment {
     OnListProjectInteraction mListener;
+    RecyclerView recyclerView;
 
     public MainProjectFragment() {
         setHasOptionsMenu(true);
 
     }
 
-    public static MainProjectFragment newInstance(ArrayList<Parcelable> obj) {
+    /*public static MainProjectFragment newInstance(ArrayList<Parcelable> obj) {
         Bundle args = new Bundle();
         args.putParcelableArrayList("data",obj);
         MainProjectFragment fragment = new MainProjectFragment();
         fragment.setArguments(args);
+        return fragment;
+    }*/
+
+    public static MainProjectFragment newInstance() {
+        MainProjectFragment fragment = new MainProjectFragment();
         return fragment;
     }
 
@@ -44,23 +60,78 @@ public class MainProjectFragment extends Fragment {
         //inflater.inflate(R.menu.menu_main, menu);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        String prefNip;
+        String prefToken;
+
+        //getShared
+        SharedPreferences sp1= getContext().getSharedPreferences("LoginData", MODE_PRIVATE);
+
+        prefNip = sp1.getString("nip", "");
+        prefToken = sp1.getString("token", null);
+
+        ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
+        //Log.d("token",prefToken);
+        Call<List<Project>> projectCall = service.getProjectList(prefNip,prefToken);
+        projectCall.enqueue(new Callback<List<Project>>() {
+            @Override
+            public void onResponse(Call<List<Project>> call, Response<List<Project>> response) {
+                setDataList(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Project>> call, Throwable t) {
+                Toast.makeText(getContext(), "Jancuk", Toast.LENGTH_SHORT).show();
+            }
+        });
+        /*Call<List<Example>> exampleCall = service.getExample();
+        exampleCall.enqueue(new Callback<List<Example>>() {
+            @Override
+            public void onResponse(Call<List<Example>> call, Response<List<Example>> response) {
+                Log.d("dicoba", "Data : "+response.body().size()+"");
+            }
+
+            @Override
+            public void onFailure(Call<List<Example>> call, Throwable t) {
+                Log.e("cageur",t.getMessage());
+            }
+        });*/
+    }
+
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.project_fragment, container, false);
+
+
+
+
+
 
         TextView view = ((View) container.getParent()).findViewById(R.id.main_title_toolbar);
         view.setText("My Project");
 
-        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerview_project_list);
+        recyclerView = rootView.findViewById(R.id.recyclerview_project_list);
 
         if (recyclerView instanceof RecyclerView){
             Context context = rootView.getContext();
             //RecyclerView recyclerView = (RecyclerView) rootView;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new MainProjectRecyclerViewAdapter(getArguments().<Project>getParcelableArrayList("data"),mListener));
+
         }
         return rootView;
+    }
+
+    private void setDataList(List<Project> projects){
+        if (recyclerView instanceof RecyclerView){
+            Context context = getContext();
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            ArrayList<Project> list = new ArrayList<>();
+            list.addAll(projects);
+            recyclerView.setAdapter(new MainProjectRecyclerViewAdapter(list,mListener));
+        }
     }
 
     @Override

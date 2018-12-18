@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.project.pentacode.pomestaff.model.Example;
+import com.project.pentacode.pomestaff.model.LoginUser;
 import com.project.pentacode.pomestaff.model.ModelGenerator;
 import com.project.pentacode.pomestaff.model.Staff;
 import com.project.pentacode.pomestaff.retrofit.RetrofitClientInstance;
@@ -39,24 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_activity);
         ButterKnife.bind(this);
 
-        ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
-        Call<Example> exampleCall = service.getExample();
-        exampleCall.enqueue(new Callback<Example>() {
-            @Override
-            public void onResponse(Call<Example> call, Response<Example> response) {
-                Toast.makeText(LoginActivity.this, response.isSuccessful()+"", Toast.LENGTH_SHORT).show();
-                txtGreet.setText(response.body().getProject().getName()+"");
-                Log.d("jestresponse",response.body().toString());
 
-            }
-
-            @Override
-            public void onFailure(Call<Example> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                txtGreet.setText(t.getMessage());
-                Log.d("jest", t.getMessage());
-            }
-        });
 
         //Toast.makeText(this, ModelGenerator.getListStaff().get(8).nama, Toast.LENGTH_SHORT).show();
     }
@@ -65,27 +49,58 @@ public class LoginActivity extends AppCompatActivity {
     public void submitLogin(View view){
         String email = txtEmail.getText().toString();
         String pass = txtPassword.getText().toString();
-        boolean verified = false;
 
-        ArrayList<Staff> listStaff = ModelGenerator.getListStaff();
 
-        for (int i = 0;i < listStaff.size();i++){
-            Staff staff = listStaff.get(i);
-            if (email.equalsIgnoreCase(staff.email) && pass.equals("123456")){
-                verified = true;
-                SharedPreferences sp=getSharedPreferences("LoginData", MODE_PRIVATE);
-                SharedPreferences.Editor Ed=sp.edit();
-                Ed.putString("nip",staff.nip );
-                Ed.putString("nama",staff.name );
-                Ed.apply();
+//        ArrayList<Staff> listStaff = ModelGenerator.getListStaff();
+//
+//        for (int i = 0;i < listStaff.size();i++){
+//            Staff staff = listStaff.get(i);
+//            if (email.equalsIgnoreCase(staff.email) && pass.equals("123456")){
+//                verified = true;
+//
+//
+//                startActivity(new Intent(this,MainActivity.class));
+//                finish();
+//            }
+//        }
 
-                startActivity(new Intent(this,MainActivity.class));
-                finish();
+        ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
+        Call<LoginUser> loginCall = service.doLogin(email,pass);
+        loginCall.enqueue(new Callback<LoginUser>() {
+            @Override
+            public void onResponse(Call<LoginUser> call, Response<LoginUser> response) {
+                boolean verified = false;
+                //Toast.makeText(LoginActivity.this, response.isSuccessful()+"", Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful())
+                    prosesLogin(response.body());
+                else
+                    Toast.makeText(LoginActivity.this, "Email atau password Salah", Toast.LENGTH_SHORT).show();
             }
-        }
 
-        if (!verified)
-            Toast.makeText(this, "Login Error", Toast.LENGTH_SHORT).show();
+            @Override
+            public void onFailure(Call<LoginUser> call, Throwable t) {
+//                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+//                txtGreet.setText(t.getMessage());
+//                Log.e("jest", t.getMessage());
+                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(LoginActivity.this, "Login Error", Toast.LENGTH_SHORT).show();
+            }
+        });
 
+
+
+    }
+
+    public void prosesLogin(LoginUser loginUser){
+
+        SharedPreferences sp = getSharedPreferences("LoginData", MODE_PRIVATE);
+        SharedPreferences.Editor Ed=sp.edit();
+        Ed.putString("nip",loginUser.getNip());
+        Ed.putString("name",loginUser.getName());
+        Ed.putString("email",loginUser.getEmail());
+        Ed.putString("token","Bearer "+loginUser.getToken());
+        Ed.apply();
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }

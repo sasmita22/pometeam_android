@@ -13,7 +13,7 @@ public class ModelGenerator {
 //    private static final ArrayList<Step> steps = new ArrayList<>();
 //    private static final ArrayList<Task> tasks = new ArrayList<>();
 //    private static final ArrayList<Parcelable> projects = new ArrayList<>();
-    private static Step step;
+   /* private static Step step;
     private static Task task;
 
     public static ArrayList<Client> getClients(){
@@ -222,5 +222,5 @@ public class ModelGenerator {
             }
         }
         return null;
-    }
+    }*/
 }

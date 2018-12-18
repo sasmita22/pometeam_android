@@ -1,5 +1,7 @@
 package com.project.pentacode.pomestaff.retrofit;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.project.pentacode.pomestaff.model.Example;
 
 import java.io.IOException;
@@ -19,7 +21,7 @@ import retrofit2.http.Headers;
 
 public class RetrofitClientInstance {
     private static Retrofit retrofit;
-    private static final String BASE_URL = "http://192.168.1.11:8000/";
+    private static final String BASE_URL = "http://10.0.2.2:8000/api/";
 
     public static Retrofit getInstance() {
 
@@ -28,17 +30,22 @@ public class RetrofitClientInstance {
                 @Override
                 public Response intercept(Chain chain) throws IOException {
                     Request newRequest = chain.request().newBuilder()
-                            .addHeader("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjBjMDY1YTdjNzU3MzU2ZjhkZmYxNTBmN2UwZmEyNjYyY2IzZjIzZWI2ZjA0NWJkNWMwZWRlMjFkYjQ5YWQ5ZWEwMGMwZWVjOWFmZWUxZWEzIn0.eyJhdWQiOiIxIiwianRpIjoiMGMwNjVhN2M3NTczNTZmOGRmZjE1MGY3ZTBmYTI2NjJjYjNmMjNlYjZmMDQ1YmQ1YzBlZGUyMWRiNDlhZDllYTAwYzBlZWM5YWZlZTFlYTMiLCJpYXQiOjE1NDE1NjIzNDksIm5iZiI6MTU0MTU2MjM0OSwiZXhwIjoxNTczMDk4MzQ4LCJzdWIiOiIxMDExNDMyMCIsInNjb3BlcyI6W119.PquRGSuGMLTdcFLhlGxFsiR37yA0Ly9hGt9lz-8mxLw6l2MMJLC6BCI-p62Sj0ec-blYinLDxYEwyfr8mqiPUGxAEbsThgIte0yFpEjAIDPDsYLTLpe2WZgJ3WM5mx6L9Itw5hMaI3iFQkNzRhd3n4eE1_KEWsq-NUIHK18kjC_26t8K7HhnUP30M36A8tvEizr119YXAfn4pFZjBH8g9N86GZ0C1fkysEdQ6wnBTZwatxGJs66XrlCPCB0RYerpfTjLmSosIGbyTUNzY_VvHQizG3E6MUupojgGFGl3bP35Qt-MKB1q6z2m83LCz7B1xZBhrIkTrj6vemQhTFCCJTdEO6xqEDoBXbpnRK__FduGgVvoOtmy-35NEfCQLa831RL7wceGjO2Q2RZDxyNJ4f8xyWe4CpYxJwCElbKjEYxWjIAHgZlB0BbsSzpjVodTwmzAhhm3aNq2z9swGrWda2z6Kzk0xtvX0LL-F7BHEoiTvbZYOXUIVWKtEH33jCuGkrNng1d7HfZzdFB6JLA5867fu6CYlDGH0WlzFjejMVfaPAQvYDHLHucz5at1V0Jg0oiABhDNI_h4o2Oa666cqCxTcJVS5J4g0dpXDDDK0OpaM1KW6l9BLkzrNJJyoRQC-lEOOWcTt-sI1ESAivIZG1D9JjIEXlZI-P2mdBiDHOw")
+                            //.addHeader("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQ0M2EyM2VlZjlmZDA3MTQ5YTBjMmJiMTA4YTAyOTU5NDQ2NjBlNmExODBkNTJlMzZlNzViZmEwMWEyMDBhY2Q2YmQxZjc3MzFhNjMzNjFjIn0.eyJhdWQiOiIxIiwianRpIjoiNDQzYTIzZWVmOWZkMDcxNDlhMGMyYmIxMDhhMDI5NTk0NDY2MGU2YTE4MGQ1MmUzNmU3NWJmYTAxYTIwMGFjZDZiZDFmNzczMWE2MzM2MWMiLCJpYXQiOjE1NDQ3MDQyNDEsIm5iZiI6MTU0NDcwNDI0MSwiZXhwIjoxNTc2MjQwMjQxLCJzdWIiOiI3Iiwic2NvcGVzIjpbXX0.SBh_GABYui9800aAZsTKoCIZamLwTxFqTwvCJS4mlS4WLLg3KCJkN0XI8oklvcNr-tUttMCo4QTS7cmeTMK1q2UPDaY-oNsoZVhizHvA1ZcnOp3f9uQLLh81WTM7KRbTDQS9zHJhcWw3yrESMKJWECizVG2qm1X02eljfSbLlpQIKAt866T8uArrLB8HhKEKr8_MkfrxJd_7wZx-2QhOCz05-Cg4-UFNkjEJf5MLtmfnq7J2b7SVMqLtYH0Z1s-AKANZoDn7SiP9vDROvDHBWS3ObE6KrTTYjy7_lZjhSpdLGvZVolXf49v4rgMyVjMulVp2m7yELcQVxH1-kVMfzP5rz8uiz58ACsREEWi-2WnKnLfwy-zAGPhRbnEBo3ez_9JCIGCBD_RiKyMu3KuHdFnTaRQj9Da63yLtjLmHmZBKPFyHp-6rAXr7nJ8E9mL5scmTs5X6PYTYT2mGNoRyzY475QatKPU2CW-RuMc_-_9gTJS8ImhV5Pn0gQndzXQ5mRYe1cdvB1EYRy7u-DHxVv5jZJwxmxojmPy9PRJuUt2A6W0ULWGTvBPChpU-SgdXJGxKpnYnBPTUuTpMnDVd3Uq6DKg6gR51NxWh1HFETqXbOF3viSiK7xPwAaLY-ClAfFR7M8lsTSFcX2g1103z-TLgm_Ng2RhmWGjlXqzEBKk")
                             .addHeader("Accept", "application/json")
                             .build();
                     return chain.proceed(newRequest);
                 }
             }).build();
 
+
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
+
             retrofit = new Retrofit.Builder()
                     .client(client)
                     .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
         }
         return retrofit;
