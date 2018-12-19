@@ -27,6 +27,9 @@ public class Project{
     @SerializedName("image")
     @Expose
     private String image;
+    @SerializedName("position_id")
+    @Expose
+    private int position_id;
     @SerializedName("position")
     @Expose
     private String position;
@@ -58,6 +61,14 @@ public class Project{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getPosition_id() {
+        return position_id;
+    }
+
+    public void setPosition_id(int position_id) {
+        this.position_id = position_id;
     }
 
     public String getPosition() {

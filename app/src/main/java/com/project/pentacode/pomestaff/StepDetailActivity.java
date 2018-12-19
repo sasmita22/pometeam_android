@@ -24,6 +24,10 @@ public class StepDetailActivity extends AppCompatActivity {
         recyclerView.setAdapter(new StepTeamHorizontalAdapter());
     }
 
+    @OnClick(R.id.step_detail_back)
+    void backPressed(View v){
+        onBackPressed();
+    }
 
     @OnClick(R.id.btn_managestep)
     void seeTeamClick(View v) { startActivity(new Intent(this,ProjectTaskListActivity.class)); }

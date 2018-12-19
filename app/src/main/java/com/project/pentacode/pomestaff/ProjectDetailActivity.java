@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,7 +49,12 @@ public class ProjectDetailActivity extends AppCompatActivity {
     TextView projectRangeDate;
     @BindView(R.id.project_detail_ended_at)
     TextView projectEndedAt;
+    @BindView(R.id.btn_manageproject)
+    Button buttonManage;
+    @BindView(R.id.btn_gotoworkspace)
+    Button buttonWorkspace;
     int id_project;
+    int position_id;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +63,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         id_project = getIntent().getIntExtra("id_project",0);
+        position_id = getIntent().getIntExtra("position_id",-1);
         //Toast.makeText(this, id_project+"", Toast.LENGTH_SHORT).show();
 
         //getShared
@@ -98,6 +105,15 @@ public class ProjectDetailActivity extends AppCompatActivity {
     }
 
     private void setDataToView(Project project){
+        Toast.makeText(this, project.getPosition_id()+"", Toast.LENGTH_SHORT).show();
+        if (position_id == 0){
+            buttonWorkspace.setVisibility(View.GONE);
+            buttonManage.setVisibility(View.VISIBLE);
+        } else if (position_id > 0) {
+            buttonWorkspace.setVisibility(View.VISIBLE);
+            buttonManage.setVisibility(View.GONE);
+        }
+
         Glide.with(getApplicationContext())
                 .load("http://10.0.2.2:8000/images/company/"+project.getImage())
                 .into(imageBanner);

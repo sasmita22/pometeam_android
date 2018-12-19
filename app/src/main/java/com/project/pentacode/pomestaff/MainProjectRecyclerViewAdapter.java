@@ -134,6 +134,7 @@ public class MainProjectRecyclerViewAdapter extends RecyclerView.Adapter<MainPro
             MainActivity context = (MainActivity) mListener;
             Intent intent = new Intent(context,ProjectDetailActivity.class);
             intent.putExtra("id_project",projects.get(this.getAdapterPosition()).getIdProject());
+            intent.putExtra("position_id",projects.get(this.getAdapterPosition()).getPosition_id());
             context.startActivity(intent);
             //Toast.makeText(context, projects.get(0).getIdProject(), Toast.LENGTH_SHORT).show();
             //Log.d("dataa",projects.get(getAdapterPosition()).getIdProject()+"");

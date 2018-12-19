@@ -25,6 +25,7 @@
         android:layout_height="match_parent"
         android:fillViewport="true"
         android:fitsSystemWindows="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,77 +34,77 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Marketing"
+                android:layout_margin="30dp"
                 android:fontFamily="@font/libre_baskerville_italic"
+                android:text="Marketing"
                 android:textColor="@color/colorPrimary"
                 android:textSize="35sp"
-                android:textStyle="bold"
-                android:layout_margin="30dp"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="@dimen/margin_left_text"
-                android:textAppearance="@style/detailTitleText"
+                android:layout_marginBottom="5dp"
                 android:text="Deskripsi"
-                android:textColor="@color/colorPrimary"/>
+                android:textAppearance="@style/detailTitleText"
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:textAppearance="@style/detailDescText"
                 android:layout_marginLeft="@dimen/margin_left_text"
                 android:layout_marginRight="50dp"
-                android:text="@string/text_description"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:textAppearance="@style/detailTitleText"
-                android:layout_marginLeft="@dimen/margin_left_text"
-                android:text="Range Time"
-                android:textColor="@color/colorPrimary"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:textAppearance="@style/detailDescText"
-                android:layout_marginLeft="@dimen/margin_left_text"
-                android:text="6 Oktober 2018 - 16 Oktober 2018"/>
+                android:text="@string/text_description"
+                android:textAppearance="@style/detailDescText" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="@dimen/margin_left_text"
+                android:layout_marginBottom="5dp"
+                android:text="Range Time"
                 android:textAppearance="@style/detailTitleText"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_left_text"
+                android:layout_marginBottom="10dp"
+                android:text="6 Oktober 2018 - 16 Oktober 2018"
+                android:textAppearance="@style/detailDescText" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_left_text"
+                android:layout_marginBottom="5dp"
                 android:text="Progress"
-                android:textColor="@color/colorPrimary"/>
+                android:textAppearance="@style/detailTitleText"
+                android:textColor="@color/colorPrimary" />
 
             <com.daimajia.numberprogressbar.NumberProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="60dp"
-                app:progress_reached_bar_height="5dp"
-                app:progress_unreached_bar_height="5dp"
                 android:layout_marginLeft="@dimen/margin_left_text"
+                android:layout_marginRight="60dp"
+                android:layout_marginBottom="10dp"
                 app:progress_current="70"
                 app:progress_max="100"
+                app:progress_reached_bar_height="5dp"
+                app:progress_reached_color="@color/colorAccent"
                 app:progress_text_color="@color/colorAccent"
-                app:progress_reached_color="@color/colorAccent"/>
+                app:progress_unreached_bar_height="5dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="@dimen/margin_left_text"
+                android:layout_marginBottom="5dp"
                 android:text="Leader"
-                android:textAppearance="@style/detailTitleText"/>
+                android:textAppearance="@style/detailTitleText" />
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="280dp"
@@ -155,13 +156,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
                     android:layout_marginTop="8dp"
-                    android:textColor="@color/colorAccent"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/rounded_orange_border_button"
-                    android:text="Change"
                     android:gravity="center"
+                    android:text="Change"
                     android:textAllCaps="false"
+                    android:textColor="@color/colorAccent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -170,8 +171,8 @@
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="@dimen/margin_left_text"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="@dimen/margin_left_text">
 
                 <TextView
@@ -190,9 +191,9 @@
                     android:layout_marginEnd="1dp"
                     android:layout_marginBottom="4dp"
                     android:background="@drawable/rounded_orange_border_button"
-                    android:fontFamily="@font/leckerli_one"
                     android:gravity="center"
                     android:text="Manage"
+                    android:textAllCaps="false"
                     android:textColor="@color/colorAccent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -200,13 +201,12 @@
             </android.support.constraint.ConstraintLayout>
 
 
-
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/step_detail_rv_team"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 android:orientation="horizontal"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 tools:listitem="@layout/staff_horizontal_item"></android.support.v7.widget.RecyclerView>
 
 
@@ -214,15 +214,14 @@
                 android:id="@+id/btn_managestep"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="Manage The Step"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="20dp"
-                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_orange_button"
+                android:text="Manage The Step"
                 android:textAllCaps="false"
-                android:background="@drawable/rounded_orange_button"/>
-
+                android:textColor="@android:color/white" />
 
 
         </LinearLayout>

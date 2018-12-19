@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
 import com.project.pentacode.pomestaff.model.Step;
@@ -14,6 +15,7 @@ import com.project.pentacode.pomestaff.retrofit.ServiceInterface;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,6 +47,11 @@ public class ProjectStepActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @OnClick(R.id.project_step_back)
+    void backPressed(View v){
+        onBackPressed();
     }
 
     private void setListSteps(List<Step> listSteps){
