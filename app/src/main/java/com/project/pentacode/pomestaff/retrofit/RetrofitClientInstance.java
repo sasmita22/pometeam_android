@@ -21,7 +21,10 @@ import retrofit2.http.Headers;
 
 public class RetrofitClientInstance {
     private static Retrofit retrofit;
-    private static final String BASE_URL = "http://10.0.2.2:8000/api/";
+    private static final String BASE_URL = "http://192.168.1.29:8000/";
+    private static final String BASE_URL_API = BASE_URL+"api/";
+    public static final String BASE_URL_IMAGE_PROFILE = BASE_URL+"images/profile/";
+    public static final String BASE_URL_IMAGE_COMPANY = BASE_URL+"images/company/";
 
     public static Retrofit getInstance() {
 
@@ -44,7 +47,7 @@ public class RetrofitClientInstance {
 
             retrofit = new Retrofit.Builder()
                     .client(client)
-                    .baseUrl(BASE_URL)
+                    .baseUrl(BASE_URL_API)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
         }

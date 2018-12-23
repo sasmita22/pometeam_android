@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -17,8 +16,6 @@ import com.bumptech.glide.Glide;
 import com.project.pentacode.pomestaff.model.Project;
 import com.project.pentacode.pomestaff.retrofit.RetrofitClientInstance;
 import com.project.pentacode.pomestaff.retrofit.ServiceInterface;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,11 +36,11 @@ public class ProjectDetailActivity extends AppCompatActivity {
     TextView projectDeskripsi;
     @BindView(R.id.project_detail_client)
     TextView projectClient;
-    @BindView(R.id.project_detail_pm_image)
+    @BindView(R.id.step_detail_leader_image)
     CircleImageView projectPMImage;
-    @BindView(R.id.project_detail_pm_name)
+    @BindView(R.id.step_detail_leader_name)
     TextView projectPMName;
-    @BindView(R.id.project_detail_pm_jabatan)
+    @BindView(R.id.step_detail_leader_jabatan)
     TextView projectPMJabatan;
     @BindView(R.id.project_detail_range_date)
     TextView projectRangeDate;
@@ -105,7 +102,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
     }
 
     private void setDataToView(Project project){
-        Toast.makeText(this, project.getPosition_id()+"", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, project.getImage()+"", Toast.LENGTH_SHORT).show();
         if (position_id == 0){
             buttonWorkspace.setVisibility(View.GONE);
             buttonManage.setVisibility(View.VISIBLE);
@@ -115,14 +112,14 @@ public class ProjectDetailActivity extends AppCompatActivity {
         }
 
         Glide.with(getApplicationContext())
-                .load("http://10.0.2.2:8000/images/company/"+project.getImage())
+                .load(RetrofitClientInstance.BASE_URL_IMAGE_COMPANY+project.getImage())
                 .into(imageBanner);
 
         projectName.setText(project.getName());
         projectDeskripsi.setText(project.getDeskripsi());
         projectClient.setText(project.getClient());
         Glide.with(getApplicationContext())
-                .load("http://10.0.2.2:8000/images/profile/"+project.getProjectManagerObject().getImage())
+                .load(RetrofitClientInstance.BASE_URL_IMAGE_PROFILE+project.getProjectManagerObject().getImage())
                 .into(projectPMImage);
         projectPMName.setText(project.getProjectManagerObject().getName());
         projectPMJabatan.setText(project.getProjectManagerObject().getJabatan());

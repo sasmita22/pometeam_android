@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
             public void onResponse(Call<Staff> call, Response<Staff> response) {
                 navEmail.setText(response.body().getEmail());
                 Glide.with(getApplicationContext())
-                        .load("http://10.0.2.2:8000/images/profile/"+response.body().getImage())
+                        .load(RetrofitClientInstance.BASE_URL_IMAGE_PROFILE+response.body().getImage())
                         .into(navImage);
             }
 

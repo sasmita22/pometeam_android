@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/horizontal_staff_item"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="140dp"
     android:layout_height="160dp"
     android:orientation="vertical">
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/horizontal_staff_image"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/simon"
@@ -11,6 +13,7 @@
         android:layout_gravity="center_horizontal"/>
 
     <TextView
+        android:id="@+id/horizontal_staff_nama"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -21,6 +24,7 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/horizontal_staff_jabatan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

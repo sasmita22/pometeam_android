@@ -18,13 +18,16 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ProjectStepAdapter extends RecyclerView.Adapter<ProjectStepAdapter.ViewHolder> {
     Context context;
     ArrayList<Step> steps;
-    public ProjectStepAdapter(Context context, ArrayList<Step> steps) {
+    int idProject;
+    public ProjectStepAdapter(Context context, ArrayList<Step> steps, int idProject) {
         this.context = context;
         this.steps = steps;
+        this.idProject = idProject;
     }
 
     @NonNull
@@ -43,12 +46,7 @@ public class ProjectStepAdapter extends RecyclerView.Adapter<ProjectStepAdapter.
         holder.stepDeskripsi.setText(step.getDeskripsi());
         holder.stepRangeDate.setText("Deadline : "+step.getDeadlineAt());
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.startActivity(new Intent(context,StepDetailActivity.class));
-            }
-        });
+
     }
 
     @Override
@@ -73,5 +71,15 @@ public class ProjectStepAdapter extends RecyclerView.Adapter<ProjectStepAdapter.
 
             ButterKnife.bind(this,itemView);
         }
+
+        @OnClick(R.id.step_item_cardview)
+        void onClickItem(View v){
+            Intent intent = new Intent(context,StepDetailActivity.class);
+            intent.putExtra("id_project",idProject);
+            intent.putExtra("id_step",steps.get(this.getAdapterPosition()).getId());
+            context.startActivity(intent);
+        }
     }
+
+
 }

@@ -4,12 +4,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ProjectTaskListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.project_task_list);
+        ButterKnife.bind(this);
+
 
         RecyclerView rvTaskList = findViewById(R.id.rv_task_list);
         RecyclerView rvTaskReviewed = findViewById(R.id.rv_task_reviewed);
@@ -20,5 +27,10 @@ public class ProjectTaskListActivity extends AppCompatActivity {
         rvTaskList.setAdapter(new TaskListAdapter());
         rvTaskReviewed.setAdapter(new TaskReviewedAdapter());
         rvTaskDone.setAdapter(new TaskDoneAdapter());
+    }
+
+    @OnClick(R.id.task_list_back)
+    void onClickBack(View v){
+        onBackPressed();
     }
 }

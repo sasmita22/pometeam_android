@@ -20,6 +20,7 @@ import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.project.pentacode.pomestaff.model.Project;
 import com.project.pentacode.pomestaff.model.Staff;
 import com.project.pentacode.pomestaff.model.Step;
+import com.project.pentacode.pomestaff.retrofit.RetrofitClientInstance;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -88,8 +89,9 @@ public class MainProjectRecyclerViewAdapter extends RecyclerView.Adapter<MainPro
             }
         });
 
+
         Glide.with(context)
-                .load("http://10.0.2.2:8000/images/company/"+project.getImage())
+                .load(RetrofitClientInstance.BASE_URL_IMAGE_COMPANY+project.getImage())
                 .into(holder.imgCompany);
 
 

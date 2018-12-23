@@ -37,4 +37,8 @@ public interface ServiceInterface {
     @GET("project/getHirarkiStep/{id_project}")
     Call<List<Step>> getSteps(@Path("id_project") int idProject, @Header("Authorization") String authorization);
 
+    @GET("step/project/{id_project}/step/{id_step}")
+    Call<Step> getStep(@Path("id_project") int idProject, @Path("id_step") int idStep, @Header("Authorization") String authorization);
+
+
 }

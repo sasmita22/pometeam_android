@@ -21,6 +21,9 @@ public class Step {
     @SerializedName("ended_at")
     @Expose
     private String endedAt;
+    @SerializedName("leader")
+    @Expose
+    private Staff leader;
     @SerializedName("team")
     @Expose
     private List<Staff> team = null;
@@ -82,5 +85,13 @@ public class Step {
 
     public void setDeskripsi(String deskripsi) {
         this.deskripsi = deskripsi;
+    }
+
+    public Staff getLeader() {
+        return leader;
+    }
+
+    public void setLeader(Staff leader) {
+        this.leader = leader;
     }
 }

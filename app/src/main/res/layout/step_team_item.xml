@@ -24,13 +24,13 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/project_detail_pm_image"
+                android:id="@+id/step_detail_leader_image"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:src="@drawable/simon" />
 
             <TextView
-                android:id="@+id/project_detail_pm_name"
+                android:id="@+id/step_detail_leader_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -38,7 +38,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/view"
-                app:layout_constraintStart_toEndOf="@+id/project_detail_pm_image"
+                app:layout_constraintStart_toEndOf="@+id/step_detail_leader_image"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed" />
 
@@ -48,12 +48,12 @@
                 android:layout_height="1dp"
                 android:layout_marginStart="8dp"
                 android:background="@color/colorPrimary"
-                app:layout_constraintBottom_toTopOf="@+id/project_detail_pm_jabatan"
-                app:layout_constraintStart_toEndOf="@+id/project_detail_pm_image"
-                app:layout_constraintTop_toBottomOf="@+id/project_detail_pm_name" />
+                app:layout_constraintBottom_toTopOf="@+id/step_detail_leader_jabatan"
+                app:layout_constraintStart_toEndOf="@+id/step_detail_leader_image"
+                app:layout_constraintTop_toBottomOf="@+id/step_detail_leader_name" />
 
             <TextView
-                android:id="@+id/project_detail_pm_jabatan"
+                android:id="@+id/step_detail_leader_jabatan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -61,7 +61,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/project_detail_pm_image"
+                app:layout_constraintStart_toEndOf="@+id/step_detail_leader_image"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
         </android.support.constraint.ConstraintLayout>
 

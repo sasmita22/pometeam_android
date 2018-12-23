@@ -77,7 +77,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void setDataToView(Staff staff){
         Glide.with(getApplicationContext())
-                .load("http://10.0.2.2:8000/images/profile/"+staff.getImage())
+                .load(RetrofitClientInstance.BASE_URL_IMAGE_PROFILE+staff.getImage())
                 .into(profileImage);
         txtName.setText(staff.getName());
         txtJabatan.setText(staff.getJabatan());
