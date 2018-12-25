@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,17 +13,17 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ChooseLeaderAdapter extends RecyclerView.Adapter<ChooseLeaderAdapter.ViewHolder>{
+public class ShowTeamListAdapter extends RecyclerView.Adapter<ShowTeamListAdapter.ViewHolder> {
     Context context;
 
-    public ChooseLeaderAdapter(Context context) {
+    public ShowTeamListAdapter(Context context) {
         this.context = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.choose_leader_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.show_team_item,parent,false);
         return new ViewHolder(view);
     }
 
@@ -30,6 +31,8 @@ public class ChooseLeaderAdapter extends RecyclerView.Adapter<ChooseLeaderAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
     }
+
+
 
 
     @Override
@@ -40,15 +43,14 @@ public class ChooseLeaderAdapter extends RecyclerView.Adapter<ChooseLeaderAdapte
     class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(View itemView) {
             super(itemView);
-
             ButterKnife.bind(this,itemView);
         }
 
-        @OnClick(R.id.cardview_choose_leader)
-        void onClickCardView(View v){
+        @OnClick(R.id.show_team_delete)
+        void onClickDelete(View v){
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle("Change Leader Step")
-                    .setMessage("Are you sure you want to choose this staff?")
+            builder.setTitle("Delete Team Member")
+                    .setMessage("Are you sure you want to delete this team member?")
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // continue with delete

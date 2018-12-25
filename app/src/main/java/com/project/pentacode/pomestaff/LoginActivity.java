@@ -74,16 +74,18 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful())
                     prosesLogin(response.body());
                 else
-                    Toast.makeText(LoginActivity.this, "Email atau password Salah", Toast.LENGTH_SHORT).show();
+                    if (response.code() == 401) {
+                        Toast.makeText(LoginActivity.this, "Email atau password Salah", Toast.LENGTH_SHORT).show();
+                    } else if (response.code() == 500) {
+                        Toast.makeText(LoginActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                    }
+
+
             }
 
             @Override
             public void onFailure(Call<LoginUser> call, Throwable t) {
-//                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-//                txtGreet.setText(t.getMessage());
-//                Log.e("jest", t.getMessage());
                 Toast.makeText(LoginActivity.this, t.getCause()+"", Toast.LENGTH_SHORT).show();
-                //Toast.makeText(LoginActivity.this, "Login Error", Toast.LENGTH_SHORT).show();
             }
         });
 

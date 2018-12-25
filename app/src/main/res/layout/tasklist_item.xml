@@ -19,6 +19,7 @@
             android:layout_marginLeft="30dp"/>
 
         <TextView
+            android:id="@+id/task_list_name"
             android:layout_marginLeft="20dp"
             android:layout_width="230dp"
             android:layout_height="wrap_content"

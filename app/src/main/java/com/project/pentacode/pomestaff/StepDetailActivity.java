@@ -31,12 +31,14 @@ public class StepDetailActivity extends AppCompatActivity {
     TextView textDeskripsi;
     @BindView(R.id.step_detail_range_date)
     TextView textRangeDate;
-    @BindView(R.id.step_detail_leader_image)
+    @BindView(R.id.task_detail_staff_image)
     CircleImageView imageLeader;
-    @BindView(R.id.step_detail_leader_name)
+    @BindView(R.id.task_detail_staff_name)
     TextView textLeaderName;
-    @BindView(R.id.step_detail_leader_jabatan)
+    @BindView(R.id.task_detail_staff_jabatan)
     TextView textLeaderJabatan;
+    int idProject;
+    int idStep;
 
 
     @Override
@@ -47,8 +49,8 @@ public class StepDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        int idProject = intent.getIntExtra("id_project", 0);
-        int idStep = intent.getIntExtra("id_step", 0);
+        idProject = intent.getIntExtra("id_project", 0);
+        idStep = intent.getIntExtra("id_step", 0);
 
 
         SharedPreferences sharedPreferences = getSharedPreferences("LoginData",MODE_PRIVATE);
@@ -74,11 +76,15 @@ public class StepDetailActivity extends AppCompatActivity {
         textTitle.setText(step.getName());
         textDeskripsi.setText(step.getDeskripsi());
         textRangeDate.setText(step.getDeadlineAt());
-        textLeaderName.setText(step.getLeader().getName());
-        textLeaderJabatan.setText(step.getLeader().getJabatan());
-        Glide.with(this)
-                .load(RetrofitClientInstance.BASE_URL_IMAGE_PROFILE+step.getLeader().getImage())
-                .into(imageLeader);
+
+        if (step.getLeader() != null){
+            textLeaderName.setText(step.getLeader().getName());
+            textLeaderJabatan.setText(step.getLeader().getJabatan());
+            Glide.with(this)
+                    .load(RetrofitClientInstance.BASE_URL_IMAGE_PROFILE+step.getLeader().getImage())
+                    .into(imageLeader);
+        }
+
 
         RecyclerView recyclerView = findViewById(R.id.step_detail_rv_team);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
@@ -91,11 +97,16 @@ public class StepDetailActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.btn_managestep)
-    void seeTeamClick(View v) { startActivity(new Intent(this,ProjectTaskListActivity.class)); }
+    void seeTeamClick(View v) {
+        Intent intent = new Intent(this,ProjectTaskListActivity.class);
+        intent.putExtra("id_project",idProject);
+        intent.putExtra("id_step",idStep);
+        startActivity(intent);
+    }
 
     @OnClick(R.id.step_detail_manage_team)
     void onClickManageTeam(View v){
-        startActivity(new Intent(this,ChooseTeamActivity.class));
+        startActivity(new Intent(this,ShowTeamListActivity.class));
     }
 
     @OnClick(R.id.step_detail_change_leader)

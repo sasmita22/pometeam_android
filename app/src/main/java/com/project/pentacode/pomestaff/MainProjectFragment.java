@@ -83,7 +83,7 @@ public class MainProjectFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Project>> call, Throwable t) {
-                Toast.makeText(getContext(), "Jancuk", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         /*Call<List<Example>> exampleCall = service.getExample();
@@ -104,10 +104,6 @@ public class MainProjectFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.project_fragment, container, false);
-
-
-
-
 
 
         TextView view = ((View) container.getParent()).findViewById(R.id.main_title_toolbar);

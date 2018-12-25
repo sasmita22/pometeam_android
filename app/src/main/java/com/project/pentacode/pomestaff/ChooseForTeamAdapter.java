@@ -12,17 +12,17 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ChooseLeaderAdapter extends RecyclerView.Adapter<ChooseLeaderAdapter.ViewHolder>{
+public class ChooseForTeamAdapter extends RecyclerView.Adapter<ChooseForTeamAdapter.ViewHolder> {
     Context context;
 
-    public ChooseLeaderAdapter(Context context) {
+    public ChooseForTeamAdapter(Context context) {
         this.context = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.choose_leader_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.choose_for_team_item,parent,false);
         return new ViewHolder(view);
     }
 
@@ -30,7 +30,6 @@ public class ChooseLeaderAdapter extends RecyclerView.Adapter<ChooseLeaderAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
     }
-
 
     @Override
     public int getItemCount() {
@@ -44,11 +43,11 @@ public class ChooseLeaderAdapter extends RecyclerView.Adapter<ChooseLeaderAdapte
             ButterKnife.bind(this,itemView);
         }
 
-        @OnClick(R.id.cardview_choose_leader)
+        @OnClick(R.id.cardview_choose_for_team)
         void onClickCardView(View v){
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle("Change Leader Step")
-                    .setMessage("Are you sure you want to choose this staff?")
+            builder.setTitle("Team Member Addition")
+                    .setMessage("Are you sure you want to add this staff?")
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // continue with delete

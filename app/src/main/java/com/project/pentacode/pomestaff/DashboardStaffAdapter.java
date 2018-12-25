@@ -6,11 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ChooseTeamAdapter extends RecyclerView.Adapter<ChooseTeamAdapter.ViewHolder> {
+public class DashboardStaffAdapter extends RecyclerView.Adapter<DashboardStaffAdapter.ViewHolder>{
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.choose_team_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.upcoming_task_item,parent,false);
         return new ViewHolder(view);
     }
 
@@ -19,15 +20,13 @@ public class ChooseTeamAdapter extends RecyclerView.Adapter<ChooseTeamAdapter.Vi
 
     }
 
-
-
-
     @Override
     public int getItemCount() {
-        return 3;
+        return 1;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder{
+
         public ViewHolder(View itemView) {
             super(itemView);
         }

@@ -26,13 +26,13 @@ public class Task {
     private Integer projectStructure;
     @SerializedName("deadline_at")
     @Expose
-    private Object deadlineAt;
+    private String deadlineAt;
     @SerializedName("finished_at")
     @Expose
-    private Object finishedAt;
-    @SerializedName("handled_by")
+    private String finishedAt;
+    @SerializedName("staff")
     @Expose
-    private String handledBy;
+    private Staff handledBy;
 
 
     public Integer getId() {
@@ -108,43 +108,27 @@ public class Task {
         return this;
     }
 
-    public Object getDeadlineAt() {
+    public String getDeadlineAt() {
         return deadlineAt;
     }
 
-    public void setDeadlineAt(Object deadlineAt) {
+    public void setDeadlineAt(String deadlineAt) {
         this.deadlineAt = deadlineAt;
     }
 
-    public Task withDeadlineAt(Object deadlineAt) {
-        this.deadlineAt = deadlineAt;
-        return this;
-    }
-
-    public Object getFinishedAt() {
+    public String getFinishedAt() {
         return finishedAt;
     }
 
-    public void setFinishedAt(Object finishedAt) {
+    public void setFinishedAt(String finishedAt) {
         this.finishedAt = finishedAt;
     }
 
-    public Task withFinishedAt(Object finishedAt) {
-        this.finishedAt = finishedAt;
-        return this;
-    }
-
-    public String getHandledBy() {
+    public Staff getHandledBy() {
         return handledBy;
     }
 
-    public void setHandledBy(String handledBy) {
+    public void setHandledBy(Staff handledBy) {
         this.handledBy = handledBy;
     }
-
-    public Task withHandledBy(String handledBy) {
-        this.handledBy = handledBy;
-        return this;
-    }
-
 }

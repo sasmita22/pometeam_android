@@ -5,6 +5,7 @@ import com.project.pentacode.pomestaff.model.LoginUser;
 import com.project.pentacode.pomestaff.model.Project;
 import com.project.pentacode.pomestaff.model.Staff;
 import com.project.pentacode.pomestaff.model.Step;
+import com.project.pentacode.pomestaff.model.Task;
 
 import java.util.List;
 
@@ -40,5 +41,9 @@ public interface ServiceInterface {
     @GET("step/project/{id_project}/step/{id_step}")
     Call<Step> getStep(@Path("id_project") int idProject, @Path("id_step") int idStep, @Header("Authorization") String authorization);
 
+    @GET("tasks/project/{id_project}/step/{id_step}")
+    Call<List<Task>> getTasks(@Path("id_project") int idProject, @Path("id_step") int idStep, @Header("Authorization") String authorization);
 
+    @GET("task/{id_task}")
+    Call<Task> getTask(@Path("id_task") int idTask, @Header("Authorization") String authorization);
 }

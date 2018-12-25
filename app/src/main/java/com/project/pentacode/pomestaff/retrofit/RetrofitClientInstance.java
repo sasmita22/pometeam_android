@@ -21,7 +21,7 @@ import retrofit2.http.Headers;
 
 public class RetrofitClientInstance {
     private static Retrofit retrofit;
-    private static final String BASE_URL = "http://192.168.1.29:8000/";
+    private static final String BASE_URL = "http://192.168.137.1:8000/";
     private static final String BASE_URL_API = BASE_URL+"api/";
     public static final String BASE_URL_IMAGE_PROFILE = BASE_URL+"images/profile/";
     public static final String BASE_URL_IMAGE_COMPANY = BASE_URL+"images/company/";

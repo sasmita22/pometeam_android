@@ -36,11 +36,11 @@ public class ProjectDetailActivity extends AppCompatActivity {
     TextView projectDeskripsi;
     @BindView(R.id.project_detail_client)
     TextView projectClient;
-    @BindView(R.id.step_detail_leader_image)
+    @BindView(R.id.task_detail_staff_image)
     CircleImageView projectPMImage;
-    @BindView(R.id.step_detail_leader_name)
+    @BindView(R.id.task_detail_staff_name)
     TextView projectPMName;
-    @BindView(R.id.step_detail_leader_jabatan)
+    @BindView(R.id.task_detail_staff_jabatan)
     TextView projectPMJabatan;
     @BindView(R.id.project_detail_range_date)
     TextView projectRangeDate;
@@ -86,7 +86,11 @@ public class ProjectDetailActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.btn_gotoworkspace)
-    void workspaceClick(View v){ startActivity(new Intent(this,ProjectTaskListActivity.class));
+    void workspaceClick(View v){
+        Intent intent = new Intent(this,ProjectTaskListActivity.class);
+        intent.putExtra("id_project",id_project);
+        intent.putExtra("id_step",position_id);
+        startActivity(intent);
     }
 
     @OnClick(R.id.btn_manageproject)
@@ -118,11 +122,15 @@ public class ProjectDetailActivity extends AppCompatActivity {
         projectName.setText(project.getName());
         projectDeskripsi.setText(project.getDeskripsi());
         projectClient.setText(project.getClient());
-        Glide.with(getApplicationContext())
-                .load(RetrofitClientInstance.BASE_URL_IMAGE_PROFILE+project.getProjectManagerObject().getImage())
-                .into(projectPMImage);
-        projectPMName.setText(project.getProjectManagerObject().getName());
-        projectPMJabatan.setText(project.getProjectManagerObject().getJabatan());
+
+        if (project.getProjectManagerObject() != null) {
+            Glide.with(getApplicationContext())
+                    .load(RetrofitClientInstance.BASE_URL_IMAGE_PROFILE+project.getProjectManagerObject().getImage())
+                    .into(projectPMImage);
+            projectPMName.setText(project.getProjectManagerObject().getName());
+            projectPMJabatan.setText(project.getProjectManagerObject().getJabatan());
+        }
+
         projectRangeDate.setText(project.getStartAt()+" - "+project.getDeadlineAt());
         projectEndedAt.setText(project.getEndedAt()==null?"-":project.getEndedAt());
     }

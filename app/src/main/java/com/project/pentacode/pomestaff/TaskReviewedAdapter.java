@@ -8,9 +8,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.project.pentacode.pomestaff.model.Task;
+
+import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class TaskReviewedAdapter extends RecyclerView.Adapter<TaskReviewedAdapter.ViewHolder>{
     Context context;
+    ArrayList<Task> tasks;
+
+    public TaskReviewedAdapter(Context context, ArrayList<Task> tasks) {
+        this.context = context;
+        this.tasks = tasks;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -21,24 +37,27 @@ public class TaskReviewedAdapter extends RecyclerView.Adapter<TaskReviewedAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.btnInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                context.startActivity(new Intent(context,TaskDetailActivity.class));
-            }
-        });
+        holder.taskName.setText(tasks.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return tasks.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        ImageButton btnInfo;
+        @BindView(R.id.task_list_name)
+        TextView taskName;
         public ViewHolder(View itemView) {
             super(itemView);
-            btnInfo = itemView.findViewById(R.id.btn_info);
+            ButterKnife.bind(this,itemView);
+        }
+
+        @OnClick(R.id.btn_info)
+        void onClickInfo(View v){
+            Intent intent = new Intent(context,TaskDetailActivity.class);
+            intent.putExtra("id_task",tasks.get(getAdapterPosition()).getId());
+            context.startActivity(intent);
         }
     }
 }

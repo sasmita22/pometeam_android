@@ -5,22 +5,32 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-
-import java.util.ArrayList;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainDashboardFragment extends Fragment {
+    @BindView(R.id.rv_dashboard_task_staff)
+    RecyclerView rvDashboardTeam;
+    @BindView(R.id.rv_dashboard_task_leader)
+    RecyclerView rvDashboardLeader;
+    @BindView(R.id.rv_dashboard_task_manager)
+    RecyclerView rvDashboardManager;
+    @BindView(R.id.expand_list_task_staff)
+    ImageButton btnExpandStaff;
+    @BindView(R.id.expand_list_task_leader)
+    ImageButton btnExpandLeader;
+    @BindView(R.id.expand_list_task_manager)
+    ImageButton btnExpandManager;
 
     public MainDashboardFragment() {
 
@@ -38,25 +48,19 @@ public class MainDashboardFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.dashboard_fragment, container, false);
-
+        ButterKnife.bind(this,rootView);
         TextView view = ((View) container.getParent()).findViewById(R.id.main_title_toolbar);
         view.setText("Dashboard");
 
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-        barEntries.add(new BarEntry(44f,0));
-        barEntries.add(new BarEntry(77f,1));
-        barEntries.add(new BarEntry(60f,2));
-        barEntries.add(new BarEntry(45f,3));
-        barEntries.add(new BarEntry(22f,4));
-        barEntries.add(new BarEntry(98f,5));
-        BarDataSet barDataSet = new BarDataSet(barEntries,"BarDataSet");
-
-        BarData barData = new BarData(barDataSet);
-
-        BarChart barChart = rootView.findViewById(R.id.barchartView);
-        barChart.setData(barData);
 
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        rvDashboardLeader.setAdapter(new DashboardLeaderAdapter());
+        rvDashboardManager.setAdapter(new DashboardManagerAdapter());
+        rvDashboardTeam.setAdapter(new DashboardStaffAdapter());
     }
 
     @Override
@@ -73,5 +77,38 @@ public class MainDashboardFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @OnClick(R.id.expand_list_task_leader)
+    void onClickExpandLeader(View v){
+        if (rvDashboardLeader.getVisibility() == View.GONE){
+            rvDashboardLeader.setVisibility(View.VISIBLE);
+            btnExpandLeader.setImageResource(R.drawable.ic_expand_less);
+        }else{
+            rvDashboardLeader.setVisibility(View.GONE);
+            btnExpandLeader.setImageResource(R.drawable.ic_expand);
+        }
+    }
+
+    @OnClick(R.id.expand_list_task_manager)
+    void onClickExpandManager(View v){
+        if (rvDashboardManager.getVisibility() == View.GONE){
+            rvDashboardManager.setVisibility(View.VISIBLE);
+            btnExpandManager.setImageResource(R.drawable.ic_expand_less);
+        }else{
+            rvDashboardManager.setVisibility(View.GONE);
+            btnExpandManager.setImageResource(R.drawable.ic_expand);
+        }
+    }
+
+    @OnClick(R.id.expand_list_task_staff)
+    void onClickExpandStaff(){
+        if (rvDashboardTeam.getVisibility() == View.GONE){
+            rvDashboardTeam.setVisibility(View.VISIBLE);
+            btnExpandStaff.setImageResource(R.drawable.ic_expand_less);
+        }else{
+            rvDashboardTeam.setVisibility(View.GONE);
+            btnExpandStaff.setImageResource(R.drawable.ic_expand);
+        }
     }
 }

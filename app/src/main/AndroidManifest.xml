@@ -44,7 +44,7 @@
             android:name=".StepTeamActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".StaffChoiceActivity"
+            android:name=".ChooseStaffResponsibleActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ProjectTaskListActivity"
@@ -64,9 +64,15 @@
             </intent-filter>
             -->
         </activity>
-        <activity android:name=".ChooseLeaderActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ChooseTeamActivity"
+        <activity
+            android:name=".ChooseLeaderActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ShowTeamListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AddStepActivity" />
+        <activity android:name=".AddTaskActivity" />
+        <activity android:name=".ChooseForTeamActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

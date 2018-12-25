@@ -18,6 +18,8 @@ public class StepTeamActivity extends AppCompatActivity {
         setContentView(R.layout.step_team_activity);
         ButterKnife.bind(this);
 
+
+
         RecyclerView recyclerView = findViewById(R.id.rv_stepteam);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new StepTeamAdapter());
@@ -25,6 +27,6 @@ public class StepTeamActivity extends AppCompatActivity {
 
     @OnClick(R.id.action_menu_add)
     void addStaffClick(View v){
-        startActivity(new Intent(this,StaffChoiceActivity.class));
+        startActivity(new Intent(this,ChooseStaffResponsibleActivity.class));
     }
 }

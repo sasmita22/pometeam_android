@@ -6,12 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class StaffChoiceAdapter extends RecyclerView.Adapter<StaffChoiceAdapter.ViewHolder> {
+public class DashboardManagerAdapter extends RecyclerView.Adapter<DashboardManagerAdapter.ViewHolder>{
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.staff_choice_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.upcoming_task_item,parent,false);
         return new ViewHolder(view);
     }
 
@@ -22,10 +22,11 @@ public class StaffChoiceAdapter extends RecyclerView.Adapter<StaffChoiceAdapter.
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 1;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder{
+
         public ViewHolder(View itemView) {
             super(itemView);
         }
