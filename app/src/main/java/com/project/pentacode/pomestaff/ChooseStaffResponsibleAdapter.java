@@ -8,15 +8,26 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.project.pentacode.pomestaff.model.Staff;
+import com.project.pentacode.pomestaff.retrofit.RetrofitClientInstance;
+
+import java.util.ArrayList;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChooseStaffResponsibleAdapter extends RecyclerView.Adapter<ChooseStaffResponsibleAdapter.ViewHolder> {
     Context context;
+    ArrayList<Staff> staffs;
 
-    public ChooseStaffResponsibleAdapter(Context context) {
+    public ChooseStaffResponsibleAdapter(Context context, ArrayList<Staff> staffs) {
         this.context = context;
+        this.staffs = staffs;
     }
 
     @NonNull
@@ -28,15 +39,26 @@ public class ChooseStaffResponsibleAdapter extends RecyclerView.Adapter<ChooseSt
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        holder.textName.setText(staffs.get(position).getName());
+        holder.textJabatan.setText(staffs.get(position).getJabatan());
+        Glide.with(context)
+                .load(RetrofitClientInstance.BASE_URL_IMAGE_PROFILE+staffs.get(position).getImage())
+                .into(holder.imageStaff);
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return staffs.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.responsible_staff_image)
+        CircleImageView imageStaff;
+        @BindView(R.id.responsible_staff_name)
+        TextView textName;
+        @BindView(R.id.responsible_staff_jabatan)
+        TextView textJabatan;
+
         public ViewHolder(View itemView) {
             super(itemView);
 

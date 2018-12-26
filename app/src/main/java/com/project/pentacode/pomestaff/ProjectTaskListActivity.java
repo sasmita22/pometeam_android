@@ -22,14 +22,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProjectTaskListActivity extends AppCompatActivity {
+    int idProject;
+    int idStep;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.project_task_list);
         ButterKnife.bind(this);
 
-        int idProject = getIntent().getIntExtra("id_project",0);
-        int idStep = getIntent().getIntExtra("id_step",0);
+        idProject = getIntent().getIntExtra("id_project",0);
+        idStep = getIntent().getIntExtra("id_step",0);
         SharedPreferences s = getSharedPreferences("LoginData",MODE_PRIVATE);
 
         ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
@@ -79,9 +81,9 @@ public class ProjectTaskListActivity extends AppCompatActivity {
         rvTaskList.setNestedScrollingEnabled(false);
         rvTaskReviewed.setNestedScrollingEnabled(false);
         rvTaskDone.setNestedScrollingEnabled(false);
-        rvTaskList.setAdapter(new TaskListAdapter(this,taskList));
-        rvTaskReviewed.setAdapter(new TaskReviewedAdapter(this,taskReview));
-        rvTaskDone.setAdapter(new TaskDoneAdapter(this,taskDone));
+        rvTaskList.setAdapter(new TaskListAdapter(this,taskList,idProject,idStep));
+        rvTaskReviewed.setAdapter(new TaskReviewedAdapter(this,taskReview,idProject,idStep));
+        rvTaskDone.setAdapter(new TaskDoneAdapter(this,taskDone,idProject,idProject));
 
     }
 

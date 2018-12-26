@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Staff {
+public class Staff implements Parcelable {
     @SerializedName("nip")
     @Expose
     public String nip;
@@ -27,6 +27,27 @@ public class Staff {
     @SerializedName("telephone")
     @Expose
     public String telephone;
+
+    protected Staff(Parcel in) {
+        nip = in.readString();
+        name = in.readString();
+        email = in.readString();
+        jabatan = in.readString();
+        image = in.readString();
+        telephone = in.readString();
+    }
+
+    public static final Creator<Staff> CREATOR = new Creator<Staff>() {
+        @Override
+        public Staff createFromParcel(Parcel in) {
+            return new Staff(in);
+        }
+
+        @Override
+        public Staff[] newArray(int size) {
+            return new Staff[size];
+        }
+    };
 
     public String getNip() {
         return nip;
@@ -74,5 +95,20 @@ public class Staff {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(nip);
+        dest.writeString(name);
+        dest.writeString(email);
+        dest.writeString(jabatan);
+        dest.writeString(image);
+        dest.writeString(telephone);
     }
 }

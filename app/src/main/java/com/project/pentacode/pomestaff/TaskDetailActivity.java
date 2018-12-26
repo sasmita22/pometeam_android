@@ -30,13 +30,15 @@ public class TaskDetailActivity extends AppCompatActivity {
     TextView textDeadline;
     @BindView(R.id.task_detail_status)
     TextView textStatus;
-    @BindView(R.id.task_detail_staff_name)
+    @BindView(R.id.responsible_staff_name)
     TextView textStaffName;
-    @BindView(R.id.task_detail_staff_jabatan)
+    @BindView(R.id.responsible_staff_jabatan)
     TextView textStaffJabatan;
-    @BindView(R.id.task_detail_staff_image)
+    @BindView(R.id.responsible_staff_image)
     CircleImageView imageStaff;
     int idTask;
+    int idProject;
+    int idStep;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +48,8 @@ public class TaskDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         idTask = getIntent().getIntExtra("id_task",0);
+        idProject = getIntent().getIntExtra("id_project",0);
+        idStep = getIntent().getIntExtra("id_step",0);
 
         String token = getSharedPreferences("LoginData",MODE_PRIVATE).getString("token",null);
 
@@ -94,7 +98,10 @@ public class TaskDetailActivity extends AppCompatActivity {
 
     @OnClick(R.id.task_detail_taken_by)
     void onClicktakenBy(View v){
-        startActivity(new Intent(this,ChooseStaffResponsibleActivity.class));
+        Intent intent = new Intent(this,ChooseStaffResponsibleActivity.class);
+        intent.putExtra("id_project",idProject);
+        intent.putExtra("id_step",idStep);
+        startActivity(intent);
     }
 
     @OnClick(R.id.task_detail_back)

@@ -3,20 +3,42 @@ package com.project.pentacode.pomestaff;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.project.pentacode.pomestaff.model.Staff;
+import com.project.pentacode.pomestaff.model.ViewProject;
+import com.project.pentacode.pomestaff.retrofit.RetrofitClientInstance;
+import com.project.pentacode.pomestaff.retrofit.ServiceInterface;
+
+import java.util.ArrayList;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChooseLeaderAdapter extends RecyclerView.Adapter<ChooseLeaderAdapter.ViewHolder>{
     Context context;
+    ArrayList<Staff> staffs;
+    int idProject;
+    int idStep;
 
-    public ChooseLeaderAdapter(Context context) {
+    public ChooseLeaderAdapter(Context context, ArrayList<Staff> staffs, int idProject, int idStep) {
         this.context = context;
+        this.staffs = staffs;
+        this.idProject = idProject;
+        this.idStep = idStep;
     }
 
     @NonNull
@@ -28,16 +50,26 @@ public class ChooseLeaderAdapter extends RecyclerView.Adapter<ChooseLeaderAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        holder.textStaffName.setText(staffs.get(position).getName());
+        holder.textStaffJabatan.setText(staffs.get(position).getJabatan());
+        Glide.with(context)
+                .load(RetrofitClientInstance.BASE_URL_IMAGE_PROFILE+staffs.get(position).getImage())
+                .into(holder.imageStaffProfile);
     }
 
 
     @Override
     public int getItemCount() {
-        return 3;
+        return staffs.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.responsible_staff_name)
+        TextView textStaffName;
+        @BindView(R.id.responsible_staff_jabatan)
+        TextView textStaffJabatan;
+        @BindView(R.id.responsible_staff_image)
+        ImageView imageStaffProfile;
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -51,7 +83,30 @@ public class ChooseLeaderAdapter extends RecyclerView.Adapter<ChooseLeaderAdapte
                     .setMessage("Are you sure you want to choose this staff?")
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            // continue with delete
+                            SharedPreferences sharedPreferences = context.getSharedPreferences("LoginData",Context.MODE_PRIVATE);
+                            ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
+                            //Call<ViewProject> bodyCall = service.setNewLeader(staffs.get(getAdapterPosition()).getNip(),idProject,idStep,sharedPreferences.getString("token",null));
+                            Call<ViewProject> bodyCall = service.setNewLeader("7",1,1,sharedPreferences.getString("token",null));
+                            bodyCall.enqueue(new Callback<ViewProject>() {
+                                @Override
+                                public void onResponse(Call<ViewProject> call, Response<ViewProject> response) {
+                                    if (response.isSuccessful()){
+                                        if (response.code() == 200){
+                                                Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                                        }else{
+                                            Toast.makeText(context, response.isSuccessful()+" : "+response.message(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }else{
+                                        Toast.makeText(context, response.isSuccessful()+" : "+response.message(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<ViewProject> call, Throwable t) {
+
+                                }
+                            });
                         }
                     })
                     .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {

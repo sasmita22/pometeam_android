@@ -2,22 +2,15 @@ package com.project.pentacode.pomestaff.retrofit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.project.pentacode.pomestaff.model.Example;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Field;
-import retrofit2.http.GET;
-import retrofit2.http.Headers;
 
 public class RetrofitClientInstance {
     private static Retrofit retrofit;

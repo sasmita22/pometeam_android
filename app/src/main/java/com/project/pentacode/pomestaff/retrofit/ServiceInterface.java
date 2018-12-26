@@ -1,11 +1,11 @@
 package com.project.pentacode.pomestaff.retrofit;
 
-import com.project.pentacode.pomestaff.model.Example;
 import com.project.pentacode.pomestaff.model.LoginUser;
 import com.project.pentacode.pomestaff.model.Project;
 import com.project.pentacode.pomestaff.model.Staff;
 import com.project.pentacode.pomestaff.model.Step;
 import com.project.pentacode.pomestaff.model.Task;
+import com.project.pentacode.pomestaff.model.ViewProject;
 
 import java.util.List;
 
@@ -14,12 +14,11 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ServiceInterface {
-    @GET("project/nip/2")
-    Call<List<Example>> getExample();
 
     @FormUrlEncoded
     @POST("login")
@@ -46,4 +45,14 @@ public interface ServiceInterface {
 
     @GET("task/{id_task}")
     Call<Task> getTask(@Path("id_task") int idTask, @Header("Authorization") String authorization);
+
+    @GET("staff/getStaffForLeaderOrTeam/{id_project}")
+    Call<List<Staff>> getStaffForLeaderOrTeam(@Path("id_project") int idProject, @Header("Authorization") String authorization);
+
+    @FormUrlEncoded
+    @PATCH("project/setLeaderProjectStructure/{id_project}/{id_step}/")
+    Call<ViewProject> setNewLeader(@Field("leader") String idNewLeader, @Path("id_project") int idProject, @Path("id_step") int idStep, @Header("Authorization") String authorization);
+
+    @GET("task/penanggungJawabTask/project/{id_project}/step/{id_step}")
+    Call<List<Staff>> getPenangguJawabTask(@Path("id_project") int idProject, @Path("id_step") int idStep, @Header("Authorization") String authorization);
 }

@@ -36,11 +36,11 @@ public class ProjectDetailActivity extends AppCompatActivity {
     TextView projectDeskripsi;
     @BindView(R.id.project_detail_client)
     TextView projectClient;
-    @BindView(R.id.task_detail_staff_image)
+    @BindView(R.id.responsible_staff_image)
     CircleImageView projectPMImage;
-    @BindView(R.id.task_detail_staff_name)
+    @BindView(R.id.responsible_staff_name)
     TextView projectPMName;
-    @BindView(R.id.task_detail_staff_jabatan)
+    @BindView(R.id.responsible_staff_jabatan)
     TextView projectPMJabatan;
     @BindView(R.id.project_detail_range_date)
     TextView projectRangeDate;

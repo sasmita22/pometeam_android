@@ -21,10 +21,14 @@ import butterknife.OnClick;
 public class TaskReviewedAdapter extends RecyclerView.Adapter<TaskReviewedAdapter.ViewHolder>{
     Context context;
     ArrayList<Task> tasks;
+    int idProject;
+    int idStep;
 
-    public TaskReviewedAdapter(Context context, ArrayList<Task> tasks) {
+    public TaskReviewedAdapter(Context context, ArrayList<Task> tasks, int idProject, int idStep) {
         this.context = context;
         this.tasks = tasks;
+        this.idProject = idProject;
+        this.idStep = idStep;
     }
 
     @NonNull
@@ -57,6 +61,8 @@ public class TaskReviewedAdapter extends RecyclerView.Adapter<TaskReviewedAdapte
         void onClickInfo(View v){
             Intent intent = new Intent(context,TaskDetailActivity.class);
             intent.putExtra("id_task",tasks.get(getAdapterPosition()).getId());
+            intent.putExtra("id_project",idProject);
+            intent.putExtra("id_step",idStep);
             context.startActivity(intent);
         }
     }

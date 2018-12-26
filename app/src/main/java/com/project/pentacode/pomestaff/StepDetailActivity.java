@@ -12,9 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.project.pentacode.pomestaff.model.Staff;
 import com.project.pentacode.pomestaff.model.Step;
 import com.project.pentacode.pomestaff.retrofit.RetrofitClientInstance;
 import com.project.pentacode.pomestaff.retrofit.ServiceInterface;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,14 +34,15 @@ public class StepDetailActivity extends AppCompatActivity {
     TextView textDeskripsi;
     @BindView(R.id.step_detail_range_date)
     TextView textRangeDate;
-    @BindView(R.id.task_detail_staff_image)
+    @BindView(R.id.responsible_staff_image)
     CircleImageView imageLeader;
-    @BindView(R.id.task_detail_staff_name)
+    @BindView(R.id.responsible_staff_name)
     TextView textLeaderName;
-    @BindView(R.id.task_detail_staff_jabatan)
+    @BindView(R.id.responsible_staff_jabatan)
     TextView textLeaderJabatan;
     int idProject;
     int idStep;
+    ArrayList<Staff> stepTeam;
 
 
     @Override
@@ -85,6 +89,8 @@ public class StepDetailActivity extends AppCompatActivity {
                     .into(imageLeader);
         }
 
+        stepTeam = new ArrayList<>();
+        stepTeam.addAll(step.getTeam());
 
         RecyclerView recyclerView = findViewById(R.id.step_detail_rv_team);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
@@ -106,12 +112,19 @@ public class StepDetailActivity extends AppCompatActivity {
 
     @OnClick(R.id.step_detail_manage_team)
     void onClickManageTeam(View v){
-        startActivity(new Intent(this,ShowTeamListActivity.class));
+        Intent intent = new Intent(this,ShowTeamListActivity.class);
+        intent.putParcelableArrayListExtra("TEAM",stepTeam);
+        intent.putExtra("id_project",idProject);
+        intent.putExtra("id_step",idStep);
+        startActivity(intent);
     }
 
     @OnClick(R.id.step_detail_change_leader)
     void onClickChangeLeader(View v){
-        startActivity(new Intent(this,ChooseLeaderActivity.class));
+        Intent intent = new Intent(this,ChooseLeaderActivity.class);
+        intent.putExtra("id_project",idProject);
+        intent.putExtra("id_step",idStep);
+        startActivity(intent);
     }
 
 

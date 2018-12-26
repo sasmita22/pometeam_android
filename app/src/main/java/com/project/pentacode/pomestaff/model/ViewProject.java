@@ -6,37 +6,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class ViewProject {
 
-    @SerializedName("href")
+    @SerializedName("msg")
     @Expose
-    private String href;
-    @SerializedName("method")
-    @Expose
-    private String method;
+    private String message;
 
-    public String getHref() {
-        return href;
+    public String getMessage() {
+        return message;
     }
 
-    public void setHref(String href) {
-        this.href = href;
+    public void setMessage(String message) {
+        this.message = message;
     }
-
-    public ViewProject withHref(String href) {
-        this.href = href;
-        return this;
-    }
-
-    public String getMethod() {
-        return method;
-    }
-
-    public void setMethod(String method) {
-        this.method = method;
-    }
-
-    public ViewProject withMethod(String method) {
-        this.method = method;
-        return this;
-    }
-
 }
