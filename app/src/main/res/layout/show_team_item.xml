@@ -22,13 +22,13 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/responsible_staff_image"
+                android:id="@+id/show_team_image"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:src="@drawable/simon" />
 
             <TextView
-                android:id="@+id/responsible_staff_name"
+                android:id="@+id/show_team_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -36,7 +36,7 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/view"
-                app:layout_constraintStart_toEndOf="@+id/responsible_staff_image"
+                app:layout_constraintStart_toEndOf="@+id/show_team_image"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed" />
 
@@ -46,12 +46,12 @@
                 android:layout_height="1dp"
                 android:layout_marginStart="8dp"
                 android:background="#4b4b4b"
-                app:layout_constraintBottom_toTopOf="@+id/responsible_staff_jabatan"
-                app:layout_constraintStart_toEndOf="@+id/responsible_staff_image"
-                app:layout_constraintTop_toBottomOf="@+id/responsible_staff_name" />
+                app:layout_constraintBottom_toTopOf="@+id/show_team_jabatan"
+                app:layout_constraintStart_toEndOf="@+id/show_team_image"
+                app:layout_constraintTop_toBottomOf="@+id/show_team_name" />
 
             <TextView
-                android:id="@+id/responsible_staff_jabatan"
+                android:id="@+id/show_team_jabatan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -59,7 +59,7 @@
                 android:textColor="#4b4b4b"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/responsible_staff_image"
+                app:layout_constraintStart_toEndOf="@+id/show_team_image"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
         </android.support.constraint.ConstraintLayout>
 

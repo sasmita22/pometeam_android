@@ -9,16 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.project.pentacode.pomestaff.model.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class TaskDoneAdapter extends RecyclerView.Adapter<TaskDoneAdapter.ViewHolder>{
+public class TaskDoneAdapter extends RecyclerView.Adapter<TaskDoneAdapter.ViewHolder> implements TaskAdapterInterface{
     Context context;
     ArrayList<Task> tasks;
     int idProject;
@@ -48,12 +50,25 @@ public class TaskDoneAdapter extends RecyclerView.Adapter<TaskDoneAdapter.ViewHo
         return tasks.size();
     }
 
+    @Override
+    public void addList(Task task) {
+        tasks.add(task);
+        notifyDataSetChanged();
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.task_list_name)
         TextView taskName;
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "Hello", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         @OnClick(R.id.btn_info)

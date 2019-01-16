@@ -4,7 +4,7 @@ package com.project.pentacode.pomestaff.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ViewProject {
+public class ApiMessage {
 
     @SerializedName("msg")
     @Expose

@@ -14,8 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.project.pentacode.pomestaff.model.ApiMessage;
 import com.project.pentacode.pomestaff.model.Staff;
-import com.project.pentacode.pomestaff.model.ViewProject;
 import com.project.pentacode.pomestaff.retrofit.RetrofitClientInstance;
 import com.project.pentacode.pomestaff.retrofit.ServiceInterface;
 
@@ -64,11 +64,11 @@ public class ChooseLeaderAdapter extends RecyclerView.Adapter<ChooseLeaderAdapte
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.responsible_staff_name)
+        @BindView(R.id.show_team_name)
         TextView textStaffName;
-        @BindView(R.id.responsible_staff_jabatan)
+        @BindView(R.id.show_team_jabatan)
         TextView textStaffJabatan;
-        @BindView(R.id.responsible_staff_image)
+        @BindView(R.id.show_team_image)
         ImageView imageStaffProfile;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -85,15 +85,14 @@ public class ChooseLeaderAdapter extends RecyclerView.Adapter<ChooseLeaderAdapte
                         public void onClick(DialogInterface dialog, int which) {
                             SharedPreferences sharedPreferences = context.getSharedPreferences("LoginData",Context.MODE_PRIVATE);
                             ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
-                            //Call<ViewProject> bodyCall = service.setNewLeader(staffs.get(getAdapterPosition()).getNip(),idProject,idStep,sharedPreferences.getString("token",null));
-                            Call<ViewProject> bodyCall = service.setNewLeader("7",1,1,sharedPreferences.getString("token",null));
-                            bodyCall.enqueue(new Callback<ViewProject>() {
+                            //Call<ApiMessage> bodyCall = service.setNewLeader(staffs.get(getAdapterPosition()).getNip(),idProject,idStep,sharedPreferences.getString("token",null));
+                            Call<ApiMessage> bodyCall = service.setNewLeader(staffs.get(getAdapterPosition()).getNip(),idProject,idStep,sharedPreferences.getString("token",null));
+                            bodyCall.enqueue(new Callback<ApiMessage>() {
                                 @Override
-                                public void onResponse(Call<ViewProject> call, Response<ViewProject> response) {
+                                public void onResponse(Call<ApiMessage> call, Response<ApiMessage> response) {
                                     if (response.isSuccessful()){
                                         if (response.code() == 200){
-                                                Toast.makeText(context, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-
+                                            ((ChooseLeaderActivity) context).onBackPressed();
                                         }else{
                                             Toast.makeText(context, response.isSuccessful()+" : "+response.message(), Toast.LENGTH_SHORT).show();
                                         }
@@ -103,7 +102,7 @@ public class ChooseLeaderAdapter extends RecyclerView.Adapter<ChooseLeaderAdapte
                                 }
 
                                 @Override
-                                public void onFailure(Call<ViewProject> call, Throwable t) {
+                                public void onFailure(Call<ApiMessage> call, Throwable t) {
 
                                 }
                             });

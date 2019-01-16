@@ -1,5 +1,6 @@
 package com.project.pentacode.pomestaff;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,9 +30,14 @@ public class ChooseLeaderActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        idProject = getIntent().getIntExtra("id_project",0);
-        idStep = getIntent().getIntExtra("id_step",0);
+        SharedPreferences sharedPreferences = getSharedPreferences("PROJECT",MODE_PRIVATE);
+        idProject = sharedPreferences.getInt("project",0);
+        idStep = sharedPreferences.getInt("step",0);
 
+        getData();
+    }
+
+    void getData(){
         ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
         Call<List<Staff>> listCall = service.getStaffForLeaderOrTeam(
                 idProject,getSharedPreferences("LoginData",MODE_PRIVATE).getString("token",null));
@@ -68,5 +74,11 @@ public class ChooseLeaderActivity extends AppCompatActivity {
     @OnClick(R.id.choose_leader_back)
     void onClickBack(View v){
         onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 }

@@ -28,7 +28,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto"
-            android:text="Choose Team"
+            android:text="Team Member"
             android:textAppearance="@android:style/TextAppearance.Material.WindowTitle"
             android:textColor="@color/colorPrimary"
             android:textSize="20sp"
@@ -40,6 +40,7 @@
 
         <ImageButton
             android:id="@+id/show_team_add"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"

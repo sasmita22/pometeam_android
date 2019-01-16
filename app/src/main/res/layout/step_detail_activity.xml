@@ -115,13 +115,13 @@
                 android:layout_marginLeft="@dimen/margin_left_text">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/responsible_staff_image"
+                    android:id="@+id/show_team_image"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:src="@drawable/empty_profile" />
 
                 <TextView
-                    android:id="@+id/responsible_staff_name"
+                    android:id="@+id/show_team_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -129,7 +129,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@+id/view"
-                    app:layout_constraintStart_toEndOf="@+id/responsible_staff_image"
+                    app:layout_constraintStart_toEndOf="@+id/show_team_image"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
 
@@ -139,12 +139,12 @@
                     android:layout_height="1dp"
                     android:layout_marginStart="8dp"
                     android:background="@color/colorPrimary"
-                    app:layout_constraintBottom_toTopOf="@+id/responsible_staff_jabatan"
-                    app:layout_constraintStart_toEndOf="@+id/responsible_staff_image"
-                    app:layout_constraintTop_toBottomOf="@+id/responsible_staff_name" />
+                    app:layout_constraintBottom_toTopOf="@+id/show_team_jabatan"
+                    app:layout_constraintStart_toEndOf="@+id/show_team_image"
+                    app:layout_constraintTop_toBottomOf="@+id/show_team_name" />
 
                 <TextView
-                    android:id="@+id/responsible_staff_jabatan"
+                    android:id="@+id/show_team_jabatan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -152,7 +152,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="10sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/responsible_staff_image"
+                    app:layout_constraintStart_toEndOf="@+id/show_team_image"
                     app:layout_constraintTop_toBottomOf="@+id/view" />
 
                 <Button

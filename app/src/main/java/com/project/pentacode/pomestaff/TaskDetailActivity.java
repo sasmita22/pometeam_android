@@ -1,10 +1,12 @@
 package com.project.pentacode.pomestaff;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,15 +32,18 @@ public class TaskDetailActivity extends AppCompatActivity {
     TextView textDeadline;
     @BindView(R.id.task_detail_status)
     TextView textStatus;
-    @BindView(R.id.responsible_staff_name)
+    @BindView(R.id.show_team_name)
     TextView textStaffName;
-    @BindView(R.id.responsible_staff_jabatan)
+    @BindView(R.id.show_team_jabatan)
     TextView textStaffJabatan;
-    @BindView(R.id.responsible_staff_image)
+    @BindView(R.id.show_team_image)
     CircleImageView imageStaff;
+    @BindView(R.id.task_detail_taken_by)
+    Button btnTakenBy;
     int idTask;
     int idProject;
     int idStep;
+    int positionId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,9 +52,20 @@ public class TaskDetailActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("PROJECT",MODE_PRIVATE);
+
+        positionId = sharedPreferences.getInt("position_id",-1);
+
+        if (positionId == 2){
+            btnTakenBy.setVisibility(View.GONE);
+        }else{
+            btnTakenBy.setVisibility(View.VISIBLE);
+        }
+
         idTask = getIntent().getIntExtra("id_task",0);
         idProject = getIntent().getIntExtra("id_project",0);
         idStep = getIntent().getIntExtra("id_step",0);
+        Toast.makeText(this, idTask+"", Toast.LENGTH_SHORT).show();
 
         String token = getSharedPreferences("LoginData",MODE_PRIVATE).getString("token",null);
 
@@ -61,13 +77,13 @@ public class TaskDetailActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     setDataToView(response.body());
                 } else {
-                    Toast.makeText(TaskDetailActivity.this, response.message()+"", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TaskDetailActivity.this, response.message()+" : is successfull", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Task> call, Throwable t) {
-                Toast.makeText(TaskDetailActivity.this, t.getMessage()+"", Toast.LENGTH_SHORT).show();;
+                Toast.makeText(TaskDetailActivity.this, t.getMessage()+" on failure", Toast.LENGTH_SHORT).show();;
             }
         });
     }
@@ -101,6 +117,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         Intent intent = new Intent(this,ChooseStaffResponsibleActivity.class);
         intent.putExtra("id_project",idProject);
         intent.putExtra("id_step",idStep);
+        intent.putExtra("id_task",idTask);
         startActivity(intent);
     }
 

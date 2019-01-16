@@ -1,5 +1,6 @@
 package com.project.pentacode.pomestaff;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,17 +22,28 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProjectTaskListActivity extends AppCompatActivity {
+public class ProjectTaskListActivity extends AppCompatActivity implements TaskListInterface{
     int idProject;
     int idStep;
+    RecyclerView.Adapter adapterList;
+    RecyclerView.Adapter adapterReview;
+    RecyclerView.Adapter adapterDone;
+    RecyclerView rvTaskList;
+    RecyclerView rvTaskReviewed;
+    RecyclerView rvTaskDone;
+    ArrayList<Task> taskList;
+    ArrayList<Task> taskReview;
+    ArrayList<Task> taskDone;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.project_task_list);
         ButterKnife.bind(this);
 
-        idProject = getIntent().getIntExtra("id_project",0);
-        idStep = getIntent().getIntExtra("id_step",0);
+        SharedPreferences sharedPreferences = getSharedPreferences("PROJECT",MODE_PRIVATE);
+        idProject = sharedPreferences.getInt("project",0);
+        idStep = sharedPreferences.getInt("step",0);
         SharedPreferences s = getSharedPreferences("LoginData",MODE_PRIVATE);
 
         ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
@@ -61,9 +73,9 @@ public class ProjectTaskListActivity extends AppCompatActivity {
         ArrayList<Task> taskArrayList = new ArrayList<>();
         taskArrayList.addAll(tasks);
 
-        ArrayList<Task> taskList = new ArrayList<>();
-        ArrayList<Task> taskReview =  new ArrayList<>();
-        ArrayList<Task> taskDone = new ArrayList<>();
+        taskList = new ArrayList<>();
+        taskReview =  new ArrayList<>();
+        taskDone = new ArrayList<>();
 
         for (Task task : taskArrayList) {
             if (task.getStatus() == 0) {
@@ -75,20 +87,48 @@ public class ProjectTaskListActivity extends AppCompatActivity {
             }
         }
 
-        RecyclerView rvTaskList = findViewById(R.id.rv_task_list);
-        RecyclerView rvTaskReviewed = findViewById(R.id.rv_task_reviewed);
-        RecyclerView rvTaskDone = findViewById(R.id.rv_task_done);
+        rvTaskList = findViewById(R.id.rv_task_list);
+        rvTaskReviewed = findViewById(R.id.rv_task_reviewed);
+        rvTaskDone = findViewById(R.id.rv_task_done);
         rvTaskList.setNestedScrollingEnabled(false);
         rvTaskReviewed.setNestedScrollingEnabled(false);
         rvTaskDone.setNestedScrollingEnabled(false);
-        rvTaskList.setAdapter(new TaskListAdapter(this,taskList,idProject,idStep));
-        rvTaskReviewed.setAdapter(new TaskReviewedAdapter(this,taskReview,idProject,idStep));
-        rvTaskDone.setAdapter(new TaskDoneAdapter(this,taskDone,idProject,idProject));
+
+        adapterList = new TaskListAdapter(this,taskList,idProject,idStep);
+        adapterReview = new TaskReviewedAdapter(this,taskReview,idProject,idStep);
+        adapterDone = new TaskDoneAdapter(this,taskDone,idProject,idStep);
+
+        rvTaskList.setAdapter(adapterList);
+        rvTaskReviewed.setAdapter(adapterReview);
+        rvTaskDone.setAdapter(adapterDone);
+
 
     }
+
+
 
     @OnClick(R.id.task_list_back)
     void onClickBack(View v){
         onBackPressed();
+    }
+
+    @OnClick(R.id.action_menu_add)
+    void onClickAdd(View v){
+        startActivity(new Intent(this,AddTaskActivity.class));
+    }
+
+    @Override
+    public void reviewTask(Task task) {
+        ((TaskReviewedAdapter) adapterReview).addList(task); ;
+    }
+
+    @Override
+    public void doneTask(Task task) {
+        ((TaskDoneAdapter) adapterDone).addList(task);
+    }
+
+    @Override
+    public void reviseTask(Task task) {
+        ((TaskListAdapter) adapterList).addList(task);
     }
 }

@@ -30,9 +30,12 @@ public class Project{
     @SerializedName("position_id")
     @Expose
     private int position_id;
-    @SerializedName("position")
+    @SerializedName("step_work_on")
     @Expose
-    private String position;
+    private int stepWorkOn;
+    @SerializedName("jabatan")
+    @Expose
+    private String jabatan;
     @SerializedName("start_at")
     @Expose
     private String startAt;
@@ -42,6 +45,12 @@ public class Project{
     @SerializedName("ended_at")
     @Expose
     private String endedAt;
+    @SerializedName("progress")
+    @Expose
+    private int progress;
+    @SerializedName("qrcode")
+    @Expose
+    private String qrcode;
     @SerializedName("step")
     @Expose
     private List<Step> step = null;
@@ -69,14 +78,6 @@ public class Project{
 
     public void setPosition_id(int position_id) {
         this.position_id = position_id;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
     }
 
     public List<Step> getStep() {
@@ -149,5 +150,37 @@ public class Project{
 
     public void setClient(String client) {
         this.client = client;
+    }
+
+    public int getStepWorkOn() {
+        return stepWorkOn;
+    }
+
+    public void setStepWorkOn(int stepWorkOn) {
+        this.stepWorkOn = stepWorkOn;
+    }
+
+    public String getJabatan() {
+        return jabatan;
+    }
+
+    public void setJabatan(String jabatan) {
+        this.jabatan = jabatan;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
+    public String getQrcode() {
+        return qrcode;
+    }
+
+    public void setQrcode(String qrcode) {
+        this.qrcode = qrcode;
     }
 }

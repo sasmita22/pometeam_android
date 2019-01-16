@@ -38,14 +38,6 @@ public class MainProjectFragment extends Fragment {
 
     }
 
-    /*public static MainProjectFragment newInstance(ArrayList<Parcelable> obj) {
-        Bundle args = new Bundle();
-        args.putParcelableArrayList("data",obj);
-        MainProjectFragment fragment = new MainProjectFragment();
-        fragment.setArguments(args);
-        return fragment;
-    }*/
-
     public static MainProjectFragment newInstance() {
         MainProjectFragment fragment = new MainProjectFragment();
         return fragment;
@@ -69,7 +61,6 @@ public class MainProjectFragment extends Fragment {
         prefToken = sp1.getString("token", null);
 
         ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
-        //Log.d("token",prefToken);
         Call<List<Project>> projectCall = service.getProjectList(prefNip,prefToken);
         projectCall.enqueue(new Callback<List<Project>>() {
             @Override
@@ -82,18 +73,6 @@ public class MainProjectFragment extends Fragment {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        /*Call<List<Example>> exampleCall = service.getExample();
-        exampleCall.enqueue(new Callback<List<Example>>() {
-            @Override
-            public void onResponse(Call<List<Example>> call, Response<List<Example>> response) {
-                Log.d("dicoba", "Data : "+response.body().size()+"");
-            }
-
-            @Override
-            public void onFailure(Call<List<Example>> call, Throwable t) {
-                Log.e("cageur",t.getMessage());
-            }
-        });*/
     }
 
     @Nullable
@@ -109,7 +88,6 @@ public class MainProjectFragment extends Fragment {
 
         if (recyclerView instanceof RecyclerView){
             Context context = rootView.getContext();
-            //RecyclerView recyclerView = (RecyclerView) rootView;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         }

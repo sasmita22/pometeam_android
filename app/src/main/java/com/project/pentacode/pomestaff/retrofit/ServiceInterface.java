@@ -5,11 +5,12 @@ import com.project.pentacode.pomestaff.model.Project;
 import com.project.pentacode.pomestaff.model.Staff;
 import com.project.pentacode.pomestaff.model.Step;
 import com.project.pentacode.pomestaff.model.Task;
-import com.project.pentacode.pomestaff.model.ViewProject;
+import com.project.pentacode.pomestaff.model.ApiMessage;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -51,8 +52,22 @@ public interface ServiceInterface {
 
     @FormUrlEncoded
     @PATCH("project/setLeaderProjectStructure/{id_project}/{id_step}/")
-    Call<ViewProject> setNewLeader(@Field("leader") String idNewLeader, @Path("id_project") int idProject, @Path("id_step") int idStep, @Header("Authorization") String authorization);
+    Call<ApiMessage> setNewLeader(@Field("leader") String idNewLeader, @Path("id_project") int idProject, @Path("id_step") int idStep, @Header("Authorization") String authorization);
 
     @GET("task/penanggungJawabTask/project/{id_project}/step/{id_step}")
-    Call<List<Staff>> getPenangguJawabTask(@Path("id_project") int idProject, @Path("id_step") int idStep, @Header("Authorization") String authorization);
+    Call<List<Staff>> getPenanggungJawabTask(@Path("id_project") int idProject, @Path("id_step") int idStep, @Header("Authorization") String authorization);
+
+    @FormUrlEncoded
+    @POST("addTeam/porject/{project}/step/{step}")
+    Call<ApiMessage> addTeam(@Path("project") int idProject, @Path("step") int idStep,@Field("staff") String nip,@Header("Authorization") String authorization);
+
+    @GET("getTeam/porject/{project}/step/{step}")
+    Call<List<Staff>> getTeam(@Path("project")int idProject, @Path("step") int idStep, @Header("Authorization") String authorization );
+
+    @FormUrlEncoded
+    @PATCH("task/setPenanggungJawabTask/{task}")
+    Call<ApiMessage> setPenanggungJawabTask(@Path("task")int idTask,@Field("handled_by") String idStaff,@Header("Authorization") String authorization);
+
+    @DELETE("member/project/{project}/step/{step}/staff/{staff}")
+    Call<ApiMessage> deleteMember(@Path("project") int idProject,@Path("step") int step,@Path("staff") String nip,@Header("Authorization") String authorization);
 }

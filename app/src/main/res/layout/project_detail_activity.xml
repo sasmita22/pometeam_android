@@ -2,6 +2,7 @@
 <ScrollView
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white">
@@ -29,23 +30,46 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/pertamina_logo"/>
 
+            <ImageButton
+                android:id="@+id/project_detail_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_more_vert"
+                android:background="@android:color/transparent"
+                android:layout_gravity="end"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="18dp"/>
+
 
         </android.support.v7.widget.CardView>
 
-        <TextView
-            android:id="@+id/project_detail_project_name"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="@font/average"
-            android:gravity="center"
-            android:text="Event Landing Page Pertamina"
-            android:textColor="@android:color/black"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+            android:layout_height="90dp">
+
+            <TextView
+                android:id="@+id/project_detail_project_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/average"
+                android:gravity="center"
+                android:text="Event Landing Page Pertamina"
+                android:textColor="@android:color/black"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,6 +109,21 @@
                 android:layout_gravity="center_horizontal"
                 android:textColor="@android:color/white"/>
 
+            <Button
+                android:id="@+id/btn_managestep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="16dp"
+                android:textStyle="bold"
+                android:textAllCaps="false"
+                android:background="@drawable/rounded_orange_button2"
+                android:text="Manage The Step"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@android:color/white"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -118,13 +157,13 @@
                 android:layout_marginLeft="@dimen/margin_left_text">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/responsible_staff_image"
+                    android:id="@+id/show_team_image"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:src="@drawable/empty_profile" />
 
                 <TextView
-                    android:id="@+id/responsible_staff_name"
+                    android:id="@+id/show_team_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -132,7 +171,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@+id/view"
-                    app:layout_constraintStart_toEndOf="@+id/responsible_staff_image"
+                    app:layout_constraintStart_toEndOf="@+id/show_team_image"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
 
@@ -142,12 +181,12 @@
                     android:layout_height="1dp"
                     android:layout_marginStart="8dp"
                     android:background="@color/colorPrimary"
-                    app:layout_constraintBottom_toTopOf="@+id/responsible_staff_jabatan"
-                    app:layout_constraintStart_toEndOf="@+id/responsible_staff_image"
-                    app:layout_constraintTop_toBottomOf="@+id/responsible_staff_name" />
+                    app:layout_constraintBottom_toTopOf="@+id/show_team_jabatan"
+                    app:layout_constraintStart_toEndOf="@+id/show_team_image"
+                    app:layout_constraintTop_toBottomOf="@+id/show_team_name" />
 
                 <TextView
-                    android:id="@+id/responsible_staff_jabatan"
+                    android:id="@+id/show_team_jabatan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -155,7 +194,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="10sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/responsible_staff_image"
+                    app:layout_constraintStart_toEndOf="@+id/show_team_image"
                     app:layout_constraintTop_toBottomOf="@+id/view" />
             </android.support.constraint.ConstraintLayout>
 

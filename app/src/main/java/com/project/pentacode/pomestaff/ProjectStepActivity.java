@@ -1,6 +1,7 @@
 package com.project.pentacode.pomestaff;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -31,7 +32,8 @@ public class ProjectStepActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        idProject = getIntent().getIntExtra("id_project",0);
+        SharedPreferences sharedPreferences = getSharedPreferences("PROJECT",MODE_PRIVATE);
+        idProject = sharedPreferences.getInt("project",0);
 
         ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
         Call<List<Step>> listCall = service.getSteps(idProject,getSharedPreferences("LoginData",MODE_PRIVATE).getString("token",null));
@@ -67,5 +69,9 @@ public class ProjectStepActivity extends AppCompatActivity {
         recyclerView.setAdapter(new ProjectStepAdapter(this,stepArrayList,idProject));
     }
 
+    @OnClick(R.id.action_menu_add)
+    void onClickAdd(View v){
+        startActivity(new Intent(this,AddStepActivity.class));
+    }
 
 }

@@ -1,14 +1,19 @@
 package com.project.pentacode.pomestaff;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,11 +41,11 @@ public class ProjectDetailActivity extends AppCompatActivity {
     TextView projectDeskripsi;
     @BindView(R.id.project_detail_client)
     TextView projectClient;
-    @BindView(R.id.responsible_staff_image)
+    @BindView(R.id.show_team_image)
     CircleImageView projectPMImage;
-    @BindView(R.id.responsible_staff_name)
+    @BindView(R.id.show_team_name)
     TextView projectPMName;
-    @BindView(R.id.responsible_staff_jabatan)
+    @BindView(R.id.show_team_jabatan)
     TextView projectPMJabatan;
     @BindView(R.id.project_detail_range_date)
     TextView projectRangeDate;
@@ -50,8 +55,12 @@ public class ProjectDetailActivity extends AppCompatActivity {
     Button buttonManage;
     @BindView(R.id.btn_gotoworkspace)
     Button buttonWorkspace;
+    @BindView(R.id.btn_managestep)
+    Button buttonManageStep;
     int id_project;
+    int id_step;
     int position_id;
+    Project project;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,9 +68,11 @@ public class ProjectDetailActivity extends AppCompatActivity {
         setContentView(R.layout.project_detail_activity);
         ButterKnife.bind(this);
 
-        id_project = getIntent().getIntExtra("id_project",0);
-        position_id = getIntent().getIntExtra("position_id",-1);
-        //Toast.makeText(this, id_project+"", Toast.LENGTH_SHORT).show();
+        SharedPreferences sharedPreferences = getSharedPreferences("PROJECT",MODE_PRIVATE);
+
+        id_project = sharedPreferences.getInt("project",0);
+        id_step = sharedPreferences.getInt("step",0);
+        position_id = sharedPreferences.getInt("position_id",-1);
 
         //getShared
         SharedPreferences sp1= getApplicationContext().getSharedPreferences("LoginData", MODE_PRIVATE);
@@ -73,6 +84,7 @@ public class ProjectDetailActivity extends AppCompatActivity {
         projectCall.enqueue(new Callback<Project>() {
             @Override
             public void onResponse(Call<Project> call, Response<Project> response) {
+                project = response.body();
                 setDataToView(response.body());
             }
 
@@ -88,15 +100,18 @@ public class ProjectDetailActivity extends AppCompatActivity {
     @OnClick(R.id.btn_gotoworkspace)
     void workspaceClick(View v){
         Intent intent = new Intent(this,ProjectTaskListActivity.class);
-        intent.putExtra("id_project",id_project);
-        intent.putExtra("id_step",position_id);
         startActivity(intent);
     }
 
     @OnClick(R.id.btn_manageproject)
     void manageProjectClick(View v){
         Intent intent = new Intent(this,ProjectStepActivity.class);
-        intent.putExtra("id_project",id_project);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.btn_managestep)
+    void onClickManageStep(View v){
+        Intent intent = new Intent(this,StepDetailActivity.class);
         startActivity(intent);
     }
 
@@ -105,14 +120,47 @@ public class ProjectDetailActivity extends AppCompatActivity {
         onBackPressed();
     }
 
+    @OnClick(R.id.project_detail_more)
+    void onClickMore(View v){
+        PopupMenu popup = new PopupMenu(this,v);
+        popup.inflate(R.menu.qrcodemenu);
+
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.qrcode :
+                        Dialog dialog = new Dialog(ProjectDetailActivity.this);
+                        dialog.setContentView(R.layout.qrcode_dialog);
+                        ImageView imageView = dialog.findViewById(R.id.qrcode_image);
+                        Glide.with(getApplicationContext())
+                                .load(RetrofitClientInstance.BASE_URL_IMAGE_QRCODE+project.getQrcode())
+                                .into(imageView);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dialog.show();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+        popup.show();
+    }
+
     private void setDataToView(Project project){
-        Toast.makeText(this, project.getImage()+"", Toast.LENGTH_SHORT).show();
         if (position_id == 0){
             buttonWorkspace.setVisibility(View.GONE);
             buttonManage.setVisibility(View.VISIBLE);
-        } else if (position_id > 0) {
+            buttonManageStep.setVisibility(View.GONE);
+        } else if (position_id == 1) {
+            buttonWorkspace.setVisibility(View.GONE);
+            buttonManage.setVisibility(View.GONE);
+            buttonManageStep.setVisibility(View.VISIBLE);
+        } else if (position_id == 2) {
             buttonWorkspace.setVisibility(View.VISIBLE);
             buttonManage.setVisibility(View.GONE);
+            buttonManageStep.setVisibility(View.GONE);
         }
 
         Glide.with(getApplicationContext())

@@ -21,7 +21,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ChooseStaffResponsibleActivity extends AppCompatActivity {
-
+    int idTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,18 +29,20 @@ public class ChooseStaffResponsibleActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        int idProject = getIntent().getIntExtra("id_project",0);
-        int idStep = getIntent().getIntExtra("id_step",0);
+        final int idProject = getIntent().getIntExtra("id_project",0);
+        final int idStep = getIntent().getIntExtra("id_step",0);
+        idTask = getIntent().getIntExtra("id_task",0);
         String token = getSharedPreferences("LoginData",MODE_PRIVATE).getString("token",null);
 
         ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
-        Call<List<Staff>> listCall = service.getPenangguJawabTask(idProject,idStep,token);
+        Call<List<Staff>> listCall = service.getPenanggungJawabTask(idProject,idStep,token);
         listCall.enqueue(new Callback<List<Staff>>() {
             @Override
             public void onResponse(Call<List<Staff>> call, Response<List<Staff>> response) {
                 if (response.isSuccessful()) {
                     if (response.code() == 200){
                         setDataToView(response.body());
+                        Toast.makeText(ChooseStaffResponsibleActivity.this, "Project : "+idProject+", Step : "+idStep, Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(ChooseStaffResponsibleActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                     }
@@ -63,7 +65,7 @@ public class ChooseStaffResponsibleActivity extends AppCompatActivity {
         staffArrayList.addAll(staffs);
         RecyclerView recyclerView = findViewById(R.id.recyclerview_choose_staff_taken);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new ChooseStaffResponsibleAdapter(this,staffArrayList));
+        recyclerView.setAdapter(new ChooseStaffResponsibleAdapter(this,staffArrayList,idTask));
     }
 
     @OnClick(R.id.staff_choice_back)

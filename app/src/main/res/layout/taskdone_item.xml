@@ -13,8 +13,8 @@
 
         <TextView
             android:id="@+id/task_list_name"
-            android:layout_marginLeft="30dp"
-            android:layout_width="275dp"
+            android:layout_marginLeft="70dp"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:text="Membuat Skema Relasi Database"
             android:layout_gravity="center_vertical"/>

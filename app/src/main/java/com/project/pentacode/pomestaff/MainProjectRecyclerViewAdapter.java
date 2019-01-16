@@ -5,21 +5,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.github.lzyzsd.circleprogress.DonutProgress;
 import com.project.pentacode.pomestaff.model.Project;
-import com.project.pentacode.pomestaff.model.Staff;
-import com.project.pentacode.pomestaff.model.Step;
 import com.project.pentacode.pomestaff.retrofit.RetrofitClientInstance;
 
 import java.text.DateFormat;
@@ -62,21 +57,13 @@ public class MainProjectRecyclerViewAdapter extends RecyclerView.Adapter<MainPro
 
         final Project project = projects.get(position);
         int teamMember = 0;
-        for (Step s: project.getStep()) {
-            teamMember += s.getTeam().size();
-
-            for (Staff staff : s.getTeam()){
-                if (prefNip.equals(staff.getNip())){
-                    project.setPosition("S. "+s.getName());
-                }
-            }
-        }
 
         holder.txtTitleInImage.setText(project.getName());
         holder.txtProjectManager.setText(project.getProjectManager());
         holder.txtRange.setText(project.getStartAt()+" - "+project.getDeadlineAt());
-        holder.txtPosition.setText("as "+project.getPosition());
-        holder.txtTeam.setText(teamMember+" Orang (Team)");
+        holder.txtPosition.setText("as "+project.getJabatan());
+        holder.txtStatus.setText(project.getProgress()==100?"Completed":"On Progress");
+        holder.donutProgress.setProgress(project.getProgress());
         //holder.donutProgress.setProgress(project.percentage);
         holder.imgCompany.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,8 +100,8 @@ public class MainProjectRecyclerViewAdapter extends RecyclerView.Adapter<MainPro
         public ImageView imgCompany;
         @BindView(R.id.project_txt_pm_name)
         public TextView txtProjectManager;
-        @BindView(R.id.project_txt_team)
-        public TextView txtTeam;
+        @BindView(R.id.project_txt_status)
+        public TextView txtStatus;
         @BindView(R.id.project_txt_range_time)
         public TextView txtRange;
         @BindView(R.id.project_txt_position)
@@ -133,10 +120,15 @@ public class MainProjectRecyclerViewAdapter extends RecyclerView.Adapter<MainPro
 
         @OnClick(R.id.project_item_detail)
         public void onClick(View v){
+            Project project = projects.get(getAdapterPosition());
             MainActivity context = (MainActivity) mListener;
+            SharedPreferences sp = context.getSharedPreferences("PROJECT",MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putInt("position_id",project.getPosition_id());
+            editor.putInt("step",project.getStepWorkOn());
+            editor.putInt("project",project.getIdProject());
+            editor.apply();
             Intent intent = new Intent(context,ProjectDetailActivity.class);
-            intent.putExtra("id_project",projects.get(this.getAdapterPosition()).getIdProject());
-            intent.putExtra("position_id",projects.get(this.getAdapterPosition()).getPosition_id());
             context.startActivity(intent);
             //Toast.makeText(context, projects.get(0).getIdProject(), Toast.LENGTH_SHORT).show();
             //Log.d("dataa",projects.get(getAdapterPosition()).getIdProject()+"");

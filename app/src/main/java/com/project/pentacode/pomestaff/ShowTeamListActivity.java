@@ -1,6 +1,7 @@
 package com.project.pentacode.pomestaff;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,14 +10,24 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.project.pentacode.pomestaff.model.Staff;
+import com.project.pentacode.pomestaff.model.Step;
+import com.project.pentacode.pomestaff.retrofit.RetrofitClientInstance;
+import com.project.pentacode.pomestaff.retrofit.ServiceInterface;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ShowTeamListActivity extends AppCompatActivity {
+    RecyclerView recyclerView;
+    int idProject;
+    int idStep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +36,19 @@ public class ShowTeamListActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("PROJECT",MODE_PRIVATE);
+        idProject = sharedPreferences.getInt("project", 0);
+        idStep = sharedPreferences.getInt("step", 0);
+
         ArrayList<Staff> staffs = getIntent().getParcelableArrayListExtra("TEAM");
-        RecyclerView recyclerView = findViewById(R.id.recyclerview_show_team);
+        recyclerView = findViewById(R.id.recyclerview_show_team);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new ShowTeamListAdapter(this,staffs));
+        recyclerView.setAdapter(new ShowTeamListAdapter(this,staffs,idProject,idStep));
+        //setDataRV(staffs);
+    }
+
+    void setDataRV(ArrayList<Staff> staffs){
+
     }
 
     @OnClick(R.id.show_team_back)
@@ -39,8 +59,39 @@ public class ShowTeamListActivity extends AppCompatActivity {
     @OnClick(R.id.show_team_add)
     void onClickAdd(View v){
         Intent intent = new Intent(this,ChooseForTeamActivity.class);
-        intent.putExtra("id_project",getIntent().getIntExtra("id_project", 0));
-        intent.putExtra("id_step",getIntent().getIntExtra("id_step", 0));
         startActivity(intent);
+    }
+
+    private void getListTeam(){
+        SharedPreferences sharedPreferences = getSharedPreferences("LoginData",MODE_PRIVATE);
+
+        idProject = getIntent().getIntExtra("id_project", 0);
+        idStep = getIntent().getIntExtra("id_step", 0);
+
+        ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
+        Call<List<Staff>> call = service.getTeam(idProject,idStep,sharedPreferences.getString("token",null));
+        call.enqueue(new Callback<List<Staff>>() {
+            @Override
+            public void onResponse(Call<List<Staff>> call, Response<List<Staff>> response) {
+                if (response.code()==200){
+                    ArrayList arrayList = new ArrayList();
+                    arrayList.addAll(response.body());
+                    setDataRV(arrayList);
+                }else{
+                    Toast.makeText(ShowTeamListActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Staff>> call, Throwable t) {
+                Toast.makeText(ShowTeamListActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getListTeam();
     }
 }

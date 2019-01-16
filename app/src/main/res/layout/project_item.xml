@@ -68,10 +68,10 @@
                 android:layout_height="22dp"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="25dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 android:text="Project Manager"
-                android:textAppearance="@style/detailTitleText2" />
+                android:textAppearance="@style/detailTitleText2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/project_txt_pm_name"
@@ -106,38 +106,39 @@
                 app:layout_constraintTop_toBottomOf="@+id/project_txt_range_time_title" />
 
             <TextView
-                android:id="@+id/project_txt_team_title"
+                android:id="@+id/project_txt_position_title"
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="8dp"
-                android:text="Team"
+                android:text="Position"
                 android:textAppearance="@style/detailTitleText2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/project_txt_range_time" />
 
             <TextView
-                android:id="@+id/project_txt_team"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:text="8 Orang (Team)"
-                android:textAppearance="@style/detailDescText2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/project_txt_team_title" />
-
-
-            <TextView
                 android:id="@+id/project_txt_position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:text="Project Manager"
+                android:textAppearance="@style/detailDescText2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/project_txt_position_title" />
+
+
+            <TextView
+                android:id="@+id/project_txt_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="as Marketing"
+                android:text="on Progress"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/project_donut_progress"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/project_donut_progress"
                 app:layout_constraintTop_toBottomOf="@+id/project_donut_progress" />
 
@@ -152,7 +153,7 @@
                 app:donut_finished_color="@color/colorAccent"
                 app:donut_progress="56"
                 app:donut_text_color="@color/colorAccent"
-                app:layout_constraintBottom_toTopOf="@+id/project_txt_position"
+                app:layout_constraintBottom_toTopOf="@+id/project_txt_status"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.3"
@@ -184,13 +185,13 @@
 
             <Button
                 android:id="@+id/project_item_detail"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
+                android:layout_width="100dp"
+                android:layout_height="25dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/rounded_orange_button"
                 android:text="Detail"
                 android:textColor="@android:color/white"
-                android:background="@drawable/rounded_orange_button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

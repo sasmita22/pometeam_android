@@ -3,6 +3,7 @@ package com.project.pentacode.pomestaff;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,8 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.project.pentacode.pomestaff.model.ApiMessage;
 import com.project.pentacode.pomestaff.model.Staff;
 import com.project.pentacode.pomestaff.retrofit.RetrofitClientInstance;
+import com.project.pentacode.pomestaff.retrofit.ServiceInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ChooseForTeamAdapter extends RecyclerView.Adapter<ChooseForTeamAdapter.ViewHolder> {
     Context context;
@@ -59,11 +65,11 @@ public class ChooseForTeamAdapter extends RecyclerView.Adapter<ChooseForTeamAdap
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.responsible_staff_image)
+        @BindView(R.id.show_team_image)
         CircleImageView imageProfile;
-        @BindView(R.id.responsible_staff_name)
+        @BindView(R.id.show_team_name)
         TextView textName;
-        @BindView(R.id.responsible_staff_jabatan)
+        @BindView(R.id.show_team_jabatan)
         TextView textJabatan;
 
         public ViewHolder(View itemView) {
@@ -79,7 +85,29 @@ public class ChooseForTeamAdapter extends RecyclerView.Adapter<ChooseForTeamAdap
                     .setMessage("Are you sure you want to add this staff?")
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            // continue with delete
+                            SharedPreferences sharedPreferences = context.getSharedPreferences("LoginData",Context.MODE_PRIVATE);
+                            ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
+                            //Call<ApiMessage> bodyCall = service.setNewLeader(staffs.get(getAdapterPosition()).getNip(),idProject,idStep,sharedPreferences.getString("token",null));
+                            Call<ApiMessage> bodyCall = service.addTeam(idProject,idStep,staffs.get(getAdapterPosition()).getNip(),sharedPreferences.getString("token",null));
+                            bodyCall.enqueue(new Callback<ApiMessage>() {
+                                @Override
+                                public void onResponse(Call<ApiMessage> call, Response<ApiMessage> response) {
+                                    if (response.isSuccessful()){
+                                        if (response.code() == 201){
+                                            ((ChooseLeaderActivity) context).onBackPressed();
+                                        }else{
+                                            Toast.makeText(context, response.isSuccessful()+" : "+response.message(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }else{
+                                        Toast.makeText(context, response.isSuccessful()+" : "+response.message(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<ApiMessage> call, Throwable t) {
+
+                                }
+                            });
                         }
                     })
                     .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {

@@ -1,5 +1,6 @@
 package com.project.pentacode.pomestaff;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -31,8 +32,10 @@ public class ChooseForTeamActivity extends AppCompatActivity {
         setContentView(R.layout.choose_for_team_activity);
         ButterKnife.bind(this);
 
-        idProject = getIntent().getIntExtra("id_project", 0);
-        idStep = getIntent().getIntExtra("id_step", 0);
+        SharedPreferences sharedPreferences = getSharedPreferences("PROJECT",MODE_PRIVATE);
+
+        idProject = sharedPreferences.getInt("project", 0);
+        idStep = sharedPreferences.getInt("step", 0);
 
         ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
         Call<List<Staff>> listCall = service.getStaffForLeaderOrTeam(

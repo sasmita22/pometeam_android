@@ -9,14 +9,24 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="15dp"
+        android:paddingLeft="30dp">
 
         <ImageButton
+            android:id="@+id/btn_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_check_green"
+            android:background="?attr/selectableItemBackground"
+            android:visibility="visible"/>
+
+        <ImageButton
+            android:id="@+id/btn_revisi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_delete_red"
             android:background="?attr/selectableItemBackground"
-            android:layout_marginLeft="30dp"/>
+            android:layout_marginLeft="10dp"/>
 
         <TextView
             android:id="@+id/task_list_name"

@@ -46,6 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -111,17 +112,6 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-//        prefNama = sp1.getString("nama", "kosong");
-        //Toast.makeText(this, prefNip, Toast.LENGTH_SHORT).show();
-
-        //Staff staff = ModelGenerator.getStaff(prefNip);
-        //Toast.makeText(this, staff.email, Toast.LENGTH_SHORT).show();
-
-        //ganti email di header navdraw
-        //TextView txtEmail = headerView.findViewById(R.id.navdraw_email);
-        //txtEmail.setText(staff.email);
-
-
 
         initFragment();
 
@@ -228,77 +218,15 @@ public class MainActivity extends AppCompatActivity implements MainProjectFragme
         }
     }
 
-   /* public boolean isInvolved(Parcelable project){
-        Project mProject = (Project) project;
-        Step mStep;
-        Staff mStaff;
-        if (mProject.projectManager.nip.equals(prefNip)){
-            return true;
-        } else {
-            String s = "\n"+mProject.title;
-            for (int i = 0; i < mProject.steps.size();i++){
-                mStep = mProject.steps.get(i);
-                s += "\n   "+mStep.name;
-                for (int j=0;j < mStep.team.size();j++){
-                    mStaff = mStep.team.get(j);
-                    s += "\n      "+mStaff.name;
-                    if(mStaff.nip.equals(prefNip)){
-                        //Log.d("terlibat",((Project) project).title+" | "+mStep.name+" | "+mStaff.nip+" == "+prefNip);
-                        return true;
-                    }
-                }
-            }
-            Log.d("step",s);
-        }
-        return false;
-    }*/
-
-   /* public ArrayList<Parcelable> getMyProjects(ArrayList<Parcelable> allProjects){
-        ArrayList<Parcelable> myProject = new ArrayList<>();
-
-        for(int i = 0;i < allProjects.size();i++){
-            if (isInvolved(allProjects.get(i))){
-                myProject.add(fixProject(allProjects.get(i)));
-            }
-        }
-        return myProject;
-    }*/
-
     public void changeFragment(Fragment fragment){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(container.getId(),fragment);
         ft.commit();
     }
 
-   /* public Parcelable fixProject(Parcelable project){
-        Project mProject = (Project) project;
-        Step mStep;
-        Staff mStaff;
-        String position = null;
-        boolean isStaff = false;
-        int teamSize = 0;
-        String s = "\n "+mProject.title;
-
-        for (int i = 0; i < mProject.steps.size();i++){
-            mStep = mProject.steps.get(i);
-            teamSize += mStep.team.size();
-            for (int j=0;j < mStep.team.size();j++){
-                mStaff = mStep.team.get(j);
-                if(mStaff.nip.equals(prefNip)){
-                    isStaff = true;
-                    position = mStep.name;
-                }
-                s += "\n "+mStaff;
-            }
-        }
-
-        Log.d("anggota", s);
-        if(isStaff){
-            mProject.userPosition = position;
-        }else{
-            mProject.userPosition = "P. Manager";
-        }
-        mProject.jumlahTeam = teamSize+1;
-        return mProject;
-    }*/
+    @OnClick(R.id.btn_qrcode)
+    void onClickQrcode(View v){
+        Intent intent = new Intent(this,ScanActivity.class);
+        startActivityForResult(intent,1);
+    }
 }

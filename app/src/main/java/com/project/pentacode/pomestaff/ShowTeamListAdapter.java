@@ -9,10 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.project.pentacode.pomestaff.model.ApiMessage;
 import com.project.pentacode.pomestaff.model.Staff;
 import com.project.pentacode.pomestaff.retrofit.RetrofitClientInstance;
+import com.project.pentacode.pomestaff.retrofit.ServiceInterface;
 
 import java.util.List;
 
@@ -20,13 +23,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ShowTeamListAdapter extends RecyclerView.Adapter<ShowTeamListAdapter.ViewHolder> {
     Context context;
     List<Staff> staffs;
-    public ShowTeamListAdapter(Context context,List<Staff> staffs) {
+    int idProject;
+    int idStep;
+    public ShowTeamListAdapter(Context context, List<Staff> staffs, int idProject, int idStep) {
         this.context = context;
         this.staffs = staffs;
+        this.idProject = idProject;
+        this.idStep = idStep;
     }
 
     @NonNull
@@ -54,11 +64,11 @@ public class ShowTeamListAdapter extends RecyclerView.Adapter<ShowTeamListAdapte
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.responsible_staff_image)
+        @BindView(R.id.show_team_image)
         CircleImageView imageProfile;
-        @BindView(R.id.responsible_staff_name)
+        @BindView(R.id.show_team_name)
         TextView textName;
-        @BindView(R.id.responsible_staff_jabatan)
+        @BindView(R.id.show_team_jabatan)
         TextView textJabatan;
 
         public ViewHolder(View itemView) {
@@ -73,7 +83,25 @@ public class ShowTeamListAdapter extends RecyclerView.Adapter<ShowTeamListAdapte
                     .setMessage("Are you sure you want to delete this team member?")
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            // continue with delete
+
+                            ServiceInterface serviceInterface = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
+                            Call<ApiMessage> call = serviceInterface.deleteMember(idProject,idStep,staffs.get(getAdapterPosition()).getNip(),
+                                    context.getSharedPreferences("LoginData",Context.MODE_PRIVATE).getString("token",null));
+                            call.enqueue(new Callback<ApiMessage>() {
+                                @Override
+                                public void onResponse(Call<ApiMessage> call, Response<ApiMessage> response) {
+                                    if(response.code() == 201){
+                                        Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<ApiMessage> call, Throwable t) {
+                                    Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                     })
                     .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {

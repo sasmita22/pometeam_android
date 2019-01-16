@@ -2,6 +2,7 @@ package com.project.pentacode.pomestaff;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.project.pentacode.pomestaff.model.Step;
 
@@ -24,10 +26,13 @@ public class ProjectStepAdapter extends RecyclerView.Adapter<ProjectStepAdapter.
     Context context;
     ArrayList<Step> steps;
     int idProject;
+    SharedPreferences sharedPreferences;
+
     public ProjectStepAdapter(Context context, ArrayList<Step> steps, int idProject) {
         this.context = context;
         this.steps = steps;
         this.idProject = idProject;
+        sharedPreferences = context.getSharedPreferences("PROJECT",Context.MODE_PRIVATE);
     }
 
     @NonNull
@@ -74,9 +79,10 @@ public class ProjectStepAdapter extends RecyclerView.Adapter<ProjectStepAdapter.
 
         @OnClick(R.id.step_item_cardview)
         void onClickItem(View v){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("step",steps.get(this.getAdapterPosition()).getId());
+            editor.apply();
             Intent intent = new Intent(context,StepDetailActivity.class);
-            intent.putExtra("id_project",idProject);
-            intent.putExtra("id_step",steps.get(this.getAdapterPosition()).getId());
             context.startActivity(intent);
         }
     }

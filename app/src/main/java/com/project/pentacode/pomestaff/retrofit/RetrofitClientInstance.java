@@ -18,6 +18,7 @@ public class RetrofitClientInstance {
     private static final String BASE_URL_API = BASE_URL+"api/";
     public static final String BASE_URL_IMAGE_PROFILE = BASE_URL+"images/profile/";
     public static final String BASE_URL_IMAGE_COMPANY = BASE_URL+"images/company/";
+    public static final String BASE_URL_IMAGE_QRCODE = BASE_URL+"images/qrcode/";
 
     public static Retrofit getInstance() {
 

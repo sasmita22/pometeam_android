@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,14 +35,17 @@ public class StepDetailActivity extends AppCompatActivity {
     TextView textDeskripsi;
     @BindView(R.id.step_detail_range_date)
     TextView textRangeDate;
-    @BindView(R.id.responsible_staff_image)
+    @BindView(R.id.show_team_image)
     CircleImageView imageLeader;
-    @BindView(R.id.responsible_staff_name)
+    @BindView(R.id.show_team_name)
     TextView textLeaderName;
-    @BindView(R.id.responsible_staff_jabatan)
+    @BindView(R.id.show_team_jabatan)
     TextView textLeaderJabatan;
+    @BindView(R.id.step_detail_change_leader)
+    Button btnChangeLeader;
     int idProject;
     int idStep;
+    int positionId;
     ArrayList<Staff> stepTeam;
 
 
@@ -52,11 +56,20 @@ public class StepDetailActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        Intent intent = getIntent();
-        idProject = intent.getIntExtra("id_project", 0);
-        idStep = intent.getIntExtra("id_step", 0);
+        SharedPreferences sharedPreferences = getSharedPreferences("PROJECT",MODE_PRIVATE);
+        idProject = sharedPreferences.getInt("project",0);
+        idStep = sharedPreferences.getInt("step", 0);
+        positionId = sharedPreferences.getInt("position_id",0);
 
+        if(positionId != 0 ){
+            btnChangeLeader.setVisibility(View.GONE);
+        }else {
+            btnChangeLeader.setVisibility(View.VISIBLE);
+        }
 
+    }
+
+    private void getData() {
         SharedPreferences sharedPreferences = getSharedPreferences("LoginData",MODE_PRIVATE);
 
         ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
@@ -72,8 +85,6 @@ public class StepDetailActivity extends AppCompatActivity {
                 Toast.makeText(StepDetailActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 
     private void setDataToView(Step step){
@@ -103,29 +114,27 @@ public class StepDetailActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.btn_managestep)
-    void seeTeamClick(View v) {
+    void onClickManageStep(View v) {
         Intent intent = new Intent(this,ProjectTaskListActivity.class);
-        intent.putExtra("id_project",idProject);
-        intent.putExtra("id_step",idStep);
         startActivity(intent);
     }
 
     @OnClick(R.id.step_detail_manage_team)
-    void onClickManageTeam(View v){
+    void onClickShowTeam(View v){
         Intent intent = new Intent(this,ShowTeamListActivity.class);
         intent.putParcelableArrayListExtra("TEAM",stepTeam);
-        intent.putExtra("id_project",idProject);
-        intent.putExtra("id_step",idStep);
         startActivity(intent);
     }
 
     @OnClick(R.id.step_detail_change_leader)
     void onClickChangeLeader(View v){
         Intent intent = new Intent(this,ChooseLeaderActivity.class);
-        intent.putExtra("id_project",idProject);
-        intent.putExtra("id_step",idStep);
         startActivity(intent);
     }
 
-
+    @Override
+    protected void onResume() {
+        getData();
+        super.onResume();
+    }
 }
