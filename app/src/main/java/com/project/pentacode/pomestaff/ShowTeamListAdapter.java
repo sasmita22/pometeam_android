@@ -85,20 +85,23 @@ public class ShowTeamListAdapter extends RecyclerView.Adapter<ShowTeamListAdapte
                         public void onClick(DialogInterface dialog, int which) {
 
                             ServiceInterface serviceInterface = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
-                            Call<ApiMessage> call = serviceInterface.deleteMember(idProject,idStep,staffs.get(getAdapterPosition()).getNip(),
+                            Call<String> call = serviceInterface.deleteMember(idProject,idStep,staffs.get(getAdapterPosition()).getNip(),
                                     context.getSharedPreferences("LoginData",Context.MODE_PRIVATE).getString("token",null));
-                            call.enqueue(new Callback<ApiMessage>() {
+                            call.enqueue(new Callback<String>() {
                                 @Override
-                                public void onResponse(Call<ApiMessage> call, Response<ApiMessage> response) {
+                                public void onResponse(Call<String> call, Response<String> response) {
                                     if(response.code() == 201){
                                         Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
+                                        staffs.remove(getAdapterPosition());
+                                        notifyDataSetChanged();
                                     }else{
                                         Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, response.code()+"", Toast.LENGTH_SHORT).show();
                                     }
                                 }
 
                                 @Override
-                                public void onFailure(Call<ApiMessage> call, Throwable t) {
+                                public void onFailure(Call<String> call, Throwable t) {
                                     Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });

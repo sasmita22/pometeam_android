@@ -31,6 +31,10 @@ public class Step {
     @Expose
     private List<Task> task = null;
 
+    @SerializedName("progress")
+    @Expose
+    private int progress;
+
     public Integer getId() {
         return id;
     }
@@ -93,5 +97,13 @@ public class Step {
 
     public void setLeader(Staff leader) {
         this.leader = leader;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
     }
 }

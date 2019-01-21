@@ -65,28 +65,11 @@ public class TaskDetailActivity extends AppCompatActivity {
         idTask = getIntent().getIntExtra("id_task",0);
         idProject = getIntent().getIntExtra("id_project",0);
         idStep = getIntent().getIntExtra("id_step",0);
-        Toast.makeText(this, idTask+"", Toast.LENGTH_SHORT).show();
 
-        String token = getSharedPreferences("LoginData",MODE_PRIVATE).getString("token",null);
 
-        ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
-        Call<Task> taskCall = service.getTask(idTask,token);
-        taskCall.enqueue(new Callback<Task>() {
-            @Override
-            public void onResponse(Call<Task> call, Response<Task> response) {
-                if (response.isSuccessful()) {
-                    setDataToView(response.body());
-                } else {
-                    Toast.makeText(TaskDetailActivity.this, response.message()+" : is successfull", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Task> call, Throwable t) {
-                Toast.makeText(TaskDetailActivity.this, t.getMessage()+" on failure", Toast.LENGTH_SHORT).show();;
-            }
-        });
     }
+
+
 
     private void setDataToView(Task task){
         Toast.makeText(this, task.getName()+"", Toast.LENGTH_SHORT).show();
@@ -124,5 +107,33 @@ public class TaskDetailActivity extends AppCompatActivity {
     @OnClick(R.id.task_detail_back)
     void onClickback(View v){
         onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        getData();
+        super.onResume();
+    }
+
+    private void getData() {
+        String token = getSharedPreferences("LoginData",MODE_PRIVATE).getString("token",null);
+
+        ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
+        Call<Task> taskCall = service.getTask(idTask,token);
+        taskCall.enqueue(new Callback<Task>() {
+            @Override
+            public void onResponse(Call<Task> call, Response<Task> response) {
+                if (response.isSuccessful()) {
+                    setDataToView(response.body());
+                } else {
+                    Toast.makeText(TaskDetailActivity.this, response.message()+" : is successfull", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Task> call, Throwable t) {
+                Toast.makeText(TaskDetailActivity.this, t.getMessage()+" on failure", Toast.LENGTH_SHORT).show();;
+            }
+        });
     }
 }

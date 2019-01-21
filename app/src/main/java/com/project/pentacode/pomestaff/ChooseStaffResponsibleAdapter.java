@@ -88,6 +88,7 @@ public class ChooseStaffResponsibleAdapter extends RecyclerView.Adapter<ChooseSt
                                 @Override
                                 public void onResponse(Call<ApiMessage> call, Response<ApiMessage> response) {
                                     if (response.code()==201){
+                                        ((ChooseStaffResponsibleActivity) context).onBackPressed();
                                         Toast.makeText(context, "Berhasil diubah", Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(context, "Cek Lagii : "+response.message()+"("+response.code()+")", Toast.LENGTH_SHORT).show();

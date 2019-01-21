@@ -93,8 +93,9 @@ public class ChooseForTeamAdapter extends RecyclerView.Adapter<ChooseForTeamAdap
                                 @Override
                                 public void onResponse(Call<ApiMessage> call, Response<ApiMessage> response) {
                                     if (response.isSuccessful()){
-                                        if (response.code() == 201){
-                                            ((ChooseLeaderActivity) context).onBackPressed();
+                                        if (response.code() == 200){
+                                            ((ChooseForTeamActivity) context).onBackPressed();
+                                            Toast.makeText(context, "Berhasil Ditambahkan", Toast.LENGTH_SHORT).show();
                                         }else{
                                             Toast.makeText(context, response.isSuccessful()+" : "+response.message(), Toast.LENGTH_SHORT).show();
                                         }

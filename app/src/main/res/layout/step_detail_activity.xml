@@ -89,6 +89,7 @@
                 android:textColor="@color/colorPrimary" />
 
             <com.daimajia.numberprogressbar.NumberProgressBar
+                android:id="@+id/progressbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_left_text"

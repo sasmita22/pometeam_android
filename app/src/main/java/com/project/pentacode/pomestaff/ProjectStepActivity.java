@@ -34,6 +34,7 @@ public class ProjectStepActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("PROJECT",MODE_PRIVATE);
         idProject = sharedPreferences.getInt("project",0);
+        //Toast.makeText(this, idProject+"", Toast.LENGTH_SHORT).show();
 
         ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
         Call<List<Step>> listCall = service.getSteps(idProject,getSharedPreferences("LoginData",MODE_PRIVATE).getString("token",null));
@@ -42,8 +43,9 @@ public class ProjectStepActivity extends AppCompatActivity {
             public void onResponse(Call<List<Step>> call, Response<List<Step>> response) {
                 if (response.isSuccessful()){
                     setListSteps(response.body());
+                    //Toast.makeText(ProjectStepActivity.this, response.body().size()+"", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(ProjectStepActivity.this, response.code(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProjectStepActivity.this, response.code()+"", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -53,7 +55,6 @@ public class ProjectStepActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     @OnClick(R.id.project_step_back)
@@ -62,10 +63,10 @@ public class ProjectStepActivity extends AppCompatActivity {
     }
 
     private void setListSteps(List<Step> listSteps){
-        RecyclerView recyclerView = findViewById(R.id.recyclerview_step);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         ArrayList<Step> stepArrayList = new ArrayList<>();
         stepArrayList.addAll(listSteps);
+        RecyclerView recyclerView = findViewById(R.id.recyclerview_step);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new ProjectStepAdapter(this,stepArrayList,idProject));
     }
 

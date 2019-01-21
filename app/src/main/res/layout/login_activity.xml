@@ -41,6 +41,7 @@
 
     <EditText
         android:id="@+id/login_edt_email"
+        android:text="udin@gmail.com"
         android:layout_width="300dp"
         android:layout_height="35dp"
         android:layout_marginStart="8dp"

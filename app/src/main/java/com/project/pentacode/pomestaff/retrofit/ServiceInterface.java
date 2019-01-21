@@ -1,6 +1,8 @@
 package com.project.pentacode.pomestaff.retrofit;
 
+import com.project.pentacode.pomestaff.model.Dashboard;
 import com.project.pentacode.pomestaff.model.LoginUser;
+import com.project.pentacode.pomestaff.model.Notifikasi;
 import com.project.pentacode.pomestaff.model.Project;
 import com.project.pentacode.pomestaff.model.Staff;
 import com.project.pentacode.pomestaff.model.Step;
@@ -54,8 +56,8 @@ public interface ServiceInterface {
     @PATCH("project/setLeaderProjectStructure/{id_project}/{id_step}/")
     Call<ApiMessage> setNewLeader(@Field("leader") String idNewLeader, @Path("id_project") int idProject, @Path("id_step") int idStep, @Header("Authorization") String authorization);
 
-    @GET("task/penanggungJawabTask/project/{id_project}/step/{id_step}")
-    Call<List<Staff>> getPenanggungJawabTask(@Path("id_project") int idProject, @Path("id_step") int idStep, @Header("Authorization") String authorization);
+    @GET("task/penanggungJawabTask/project/{id_project}/step/{id_step}/task/{task}")
+    Call<List<Staff>> getPenanggungJawabTask(@Path("id_project") int idProject, @Path("id_step") int idStep, @Path("task") int idTask, @Header("Authorization") String authorization);
 
     @FormUrlEncoded
     @POST("addTeam/porject/{project}/step/{step}")
@@ -69,5 +71,37 @@ public interface ServiceInterface {
     Call<ApiMessage> setPenanggungJawabTask(@Path("task")int idTask,@Field("handled_by") String idStaff,@Header("Authorization") String authorization);
 
     @DELETE("member/project/{project}/step/{step}/staff/{staff}")
-    Call<ApiMessage> deleteMember(@Path("project") int idProject,@Path("step") int step,@Path("staff") String nip,@Header("Authorization") String authorization);
+    Call<String> deleteMember(@Path("project") int idProject,@Path("step") int step,@Path("staff") String nip,@Header("Authorization") String authorization);
+
+    @PATCH("task/statusDone/{id}")
+    Call<ApiMessage> setTaskDone(@Path("id") int idTask,@Header("Authorization") String authorization);
+
+    @PATCH("task/statusUndone/{id}")
+    Call<ApiMessage> setTaskUndone(@Path("id") int idTask,@Header("Authorization") String authorization);
+
+    @PATCH("task/statusPreview/{id}")
+    Call<ApiMessage> setTaskPreview(@Path("id") int idTask,@Header("Authorization") String authorization);
+
+    @GET("dashboard/staff/{nip}")
+    Call<List<Dashboard>> getStaffDashboard(@Path("nip") String nip, @Header("Authorization") String authorization);
+
+    @GET("dashboard/leader/{nip}")
+    Call<List<Dashboard>> getLeaderDashboard(@Path("nip") String nip,@Header("Authorization") String authorization);
+
+    @GET("dashboard/manager/{nip}")
+    Call<List<Dashboard>> getManagerDashboard(@Path("nip") String nip,@Header("Authorization") String authorization);
+
+    @FormUrlEncoded
+    @POST("step/{project}/create")
+    Call<ApiMessage> createStep(@Path("project") int idProject,@Field("name") String nama, @Field("deskripsi") String deskripsi, @Field("deadline_at") String deadlineAt,@Header("Authorization") String authorization);
+
+    @FormUrlEncoded
+    @POST("task/project{project}/step/{step}/create")
+    Call<ApiMessage> createTask(@Path("project") int idProject,@Path("step") int idStep,@Field("name") String nama, @Field("deskripsi") String deskripsi, @Field("deadline_at") String deadlineAt,@Header("Authorization") String authorization);
+
+    @GET("getjob/staff/{staff}/project/{project}")
+    Call<Project> getProjectQRCode(@Path("staff") String nip, @Path("project") int idProject,@Header("Authorization") String authorization);
+
+    @GET("task/{nip}/getNotification")
+    Call<List<Notifikasi>> getNotifikasi(@Path("nip") String nip,@Header("Authorization") String authorization);
 }

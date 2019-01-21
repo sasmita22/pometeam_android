@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.maps.GoogleMap;
 import com.project.pentacode.pomestaff.model.Project;
 import com.project.pentacode.pomestaff.retrofit.RetrofitClientInstance;
 import com.project.pentacode.pomestaff.retrofit.ServiceInterface;
@@ -57,6 +59,8 @@ public class ProjectDetailActivity extends AppCompatActivity {
     Button buttonWorkspace;
     @BindView(R.id.btn_managestep)
     Button buttonManageStep;
+    @BindView(R.id.caution)
+    CardView cautionMessage;
     int id_project;
     int id_step;
     int position_id;
@@ -149,15 +153,23 @@ public class ProjectDetailActivity extends AppCompatActivity {
     }
 
     private void setDataToView(Project project){
-        if (position_id == 0){
+        if (position_id == -1){
+            cautionMessage.setVisibility(View.VISIBLE);
+            buttonWorkspace.setVisibility(View.GONE);
+            buttonManage.setVisibility(View.GONE);
+            buttonManageStep.setVisibility(View.GONE);
+        }else if (position_id == 0){
+            cautionMessage.setVisibility(View.GONE);
             buttonWorkspace.setVisibility(View.GONE);
             buttonManage.setVisibility(View.VISIBLE);
             buttonManageStep.setVisibility(View.GONE);
         } else if (position_id == 1) {
+            cautionMessage.setVisibility(View.GONE);
             buttonWorkspace.setVisibility(View.GONE);
             buttonManage.setVisibility(View.GONE);
             buttonManageStep.setVisibility(View.VISIBLE);
         } else if (position_id == 2) {
+            cautionMessage.setVisibility(View.GONE);
             buttonWorkspace.setVisibility(View.VISIBLE);
             buttonManage.setVisibility(View.GONE);
             buttonManageStep.setVisibility(View.GONE);

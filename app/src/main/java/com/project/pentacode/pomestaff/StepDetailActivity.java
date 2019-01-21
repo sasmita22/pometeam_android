@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.project.pentacode.pomestaff.model.Staff;
 import com.project.pentacode.pomestaff.model.Step;
 import com.project.pentacode.pomestaff.retrofit.RetrofitClientInstance;
@@ -43,6 +44,8 @@ public class StepDetailActivity extends AppCompatActivity {
     TextView textLeaderJabatan;
     @BindView(R.id.step_detail_change_leader)
     Button btnChangeLeader;
+    @BindView(R.id.progressbar)
+    NumberProgressBar progressbar;
     int idProject;
     int idStep;
     int positionId;
@@ -102,7 +105,7 @@ public class StepDetailActivity extends AppCompatActivity {
 
         stepTeam = new ArrayList<>();
         stepTeam.addAll(step.getTeam());
-
+        progressbar.setProgress(step.getProgress());
         RecyclerView recyclerView = findViewById(R.id.step_detail_rv_team);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         recyclerView.setAdapter(new StepTeamHorizontalAdapter(this,step));

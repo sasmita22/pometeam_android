@@ -35,7 +35,7 @@ public class ChooseStaffResponsibleActivity extends AppCompatActivity {
         String token = getSharedPreferences("LoginData",MODE_PRIVATE).getString("token",null);
 
         ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
-        Call<List<Staff>> listCall = service.getPenanggungJawabTask(idProject,idStep,token);
+        Call<List<Staff>> listCall = service.getPenanggungJawabTask(idProject,idStep,idTask,token);
         listCall.enqueue(new Callback<List<Staff>>() {
             @Override
             public void onResponse(Call<List<Staff>> call, Response<List<Staff>> response) {

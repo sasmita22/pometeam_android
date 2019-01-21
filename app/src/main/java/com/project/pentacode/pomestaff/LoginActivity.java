@@ -55,8 +55,8 @@ public class LoginActivity extends AppCompatActivity {
                     prosesLogin(response.body());
                 else
                     if (response.code() == 401) {
-                        //Toast.makeText(LoginActivity.this, "Email atau password Salah", Toast.LENGTH_SHORT).show();
-                        Toast.makeText(LoginActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Email atau password Salah", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                     } else if (response.code() == 500) {
                         Toast.makeText(LoginActivity.this, response.message(), Toast.LENGTH_SHORT).show();
                     }

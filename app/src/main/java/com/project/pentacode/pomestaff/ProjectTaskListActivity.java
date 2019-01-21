@@ -7,7 +7,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
+import com.project.pentacode.pomestaff.model.ApiMessage;
 import com.project.pentacode.pomestaff.model.Task;
 import com.project.pentacode.pomestaff.retrofit.RetrofitClientInstance;
 import com.project.pentacode.pomestaff.retrofit.ServiceInterface;
@@ -34,6 +36,7 @@ public class ProjectTaskListActivity extends AppCompatActivity implements TaskLi
     ArrayList<Task> taskList;
     ArrayList<Task> taskReview;
     ArrayList<Task> taskDone;
+    SharedPreferences s;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,7 +47,7 @@ public class ProjectTaskListActivity extends AppCompatActivity implements TaskLi
         SharedPreferences sharedPreferences = getSharedPreferences("PROJECT",MODE_PRIVATE);
         idProject = sharedPreferences.getInt("project",0);
         idStep = sharedPreferences.getInt("step",0);
-        SharedPreferences s = getSharedPreferences("LoginData",MODE_PRIVATE);
+        s = getSharedPreferences("LoginData",MODE_PRIVATE);
 
         ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
         //Call<List<Task>> listCall = service.getTasks(idProject,idStep,s.getString("token",null));
@@ -119,16 +122,56 @@ public class ProjectTaskListActivity extends AppCompatActivity implements TaskLi
 
     @Override
     public void reviewTask(Task task) {
-        ((TaskReviewedAdapter) adapterReview).addList(task); ;
+        final Task temp = task;
+        ServiceInterface serviceInterface = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
+        Call<ApiMessage> messageCall = serviceInterface.setTaskPreview(task.getId(),s.getString("token",null));
+        messageCall.enqueue(new Callback<ApiMessage>() {
+            @Override
+            public void onResponse(Call<ApiMessage> call, Response<ApiMessage> response) {
+                ((TaskReviewedAdapter) adapterReview).addList(temp);
+            }
+
+            @Override
+            public void onFailure(Call<ApiMessage> call, Throwable t) {
+                Toast.makeText(ProjectTaskListActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     public void doneTask(Task task) {
-        ((TaskDoneAdapter) adapterDone).addList(task);
+        final Task temp = task;
+        ServiceInterface serviceInterface = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
+        Call<ApiMessage> messageCall = serviceInterface.setTaskDone(task.getId(),s.getString("token",null));
+        messageCall.enqueue(new Callback<ApiMessage>() {
+            @Override
+            public void onResponse(Call<ApiMessage> call, Response<ApiMessage> response) {
+                ((TaskDoneAdapter) adapterDone).addList(temp);
+                Toast.makeText(ProjectTaskListActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ApiMessage> call, Throwable t) {
+                Toast.makeText(ProjectTaskListActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     public void reviseTask(Task task) {
-        ((TaskListAdapter) adapterList).addList(task);
+        final Task temp = task;
+        ServiceInterface serviceInterface = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
+        Call<ApiMessage> messageCall = serviceInterface.setTaskUndone(task.getId(),s.getString("token",null));
+        messageCall.enqueue(new Callback<ApiMessage>() {
+            @Override
+            public void onResponse(Call<ApiMessage> call, Response<ApiMessage> response) {
+                ((TaskListAdapter) adapterList).addList(temp);
+            }
+
+            @Override
+            public void onFailure(Call<ApiMessage> call, Throwable t) {
+                Toast.makeText(ProjectTaskListActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

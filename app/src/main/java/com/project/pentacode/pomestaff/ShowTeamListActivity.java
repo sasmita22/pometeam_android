@@ -40,15 +40,15 @@ public class ShowTeamListActivity extends AppCompatActivity {
         idProject = sharedPreferences.getInt("project", 0);
         idStep = sharedPreferences.getInt("step", 0);
 
-        ArrayList<Staff> staffs = getIntent().getParcelableArrayListExtra("TEAM");
+        //ArrayList<Staff> staffs = getIntent().getParcelableArrayListExtra("TEAM");
         recyclerView = findViewById(R.id.recyclerview_show_team);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new ShowTeamListAdapter(this,staffs,idProject,idStep));
         //setDataRV(staffs);
     }
 
     void setDataRV(ArrayList<Staff> staffs){
 
+        recyclerView.setAdapter(new ShowTeamListAdapter(this,staffs,idProject,idStep));
     }
 
     @OnClick(R.id.show_team_back)
@@ -65,9 +65,6 @@ public class ShowTeamListActivity extends AppCompatActivity {
     private void getListTeam(){
         SharedPreferences sharedPreferences = getSharedPreferences("LoginData",MODE_PRIVATE);
 
-        idProject = getIntent().getIntExtra("id_project", 0);
-        idStep = getIntent().getIntExtra("id_step", 0);
-
         ServiceInterface service = RetrofitClientInstance.getInstance().create(ServiceInterface.class);
         Call<List<Staff>> call = service.getTeam(idProject,idStep,sharedPreferences.getString("token",null));
         call.enqueue(new Callback<List<Staff>>() {
@@ -75,6 +72,7 @@ public class ShowTeamListActivity extends AppCompatActivity {
             public void onResponse(Call<List<Staff>> call, Response<List<Staff>> response) {
                 if (response.code()==200){
                     ArrayList arrayList = new ArrayList();
+                    Toast.makeText(ShowTeamListActivity.this, response.body().size()+"", Toast.LENGTH_SHORT).show();
                     arrayList.addAll(response.body());
                     setDataRV(arrayList);
                 }else{
@@ -91,7 +89,7 @@ public class ShowTeamListActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
         getListTeam();
+        super.onResume();
     }
 }
