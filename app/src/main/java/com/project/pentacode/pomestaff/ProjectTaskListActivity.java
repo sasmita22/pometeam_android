@@ -115,11 +115,6 @@ public class ProjectTaskListActivity extends AppCompatActivity implements TaskLi
         onBackPressed();
     }
 
-    @OnClick(R.id.action_menu_add)
-    void onClickAdd(View v){
-        startActivity(new Intent(this,AddTaskActivity.class));
-    }
-
     @Override
     public void reviewTask(Task task) {
         final Task temp = task;

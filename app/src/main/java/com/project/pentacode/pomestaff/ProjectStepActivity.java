@@ -70,9 +70,4 @@ public class ProjectStepActivity extends AppCompatActivity {
         recyclerView.setAdapter(new ProjectStepAdapter(this,stepArrayList,idProject));
     }
 
-    @OnClick(R.id.action_menu_add)
-    void onClickAdd(View v){
-        startActivity(new Intent(this,AddStepActivity.class));
-    }
-
 }

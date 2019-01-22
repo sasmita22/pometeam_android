@@ -148,7 +148,7 @@
                 android:layout_marginBottom="5dp"
                 android:textAppearance="@style/detailTitleText"
                 android:layout_marginLeft="@dimen/margin_left_text"
-                android:text="Deskripsi"/>
+                android:text="Description"/>
 
             <TextView
                 android:id="@+id/project_detail_desc"
